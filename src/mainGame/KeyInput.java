@@ -77,7 +77,7 @@ public class KeyInput extends KeyAdapter {
 						upgrades.clearScreenAbility();
 					} else if (ability.equals("levelSkip")) {
 						upgrades.levelSkipAbility();
-					} else if (ability.equals("freezeDime")) {
+					} else if (ability.equals("freezeTime")) {
 						upgrades.freezeTimeAbility();
 					}
 				}
