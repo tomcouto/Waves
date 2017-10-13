@@ -2,13 +2,17 @@ package mainGame;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 
 /**
  * Main game class. This class is the driver class and it follows the Holder
  * pattern. It houses references to ALL of the components of the game
- * 
+ *
  * @author Brandon Loehle 5/30/16
  */
 
@@ -16,7 +20,8 @@ public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static final int WIDTH = 1920, HEIGHT = 1080;
+	public static int WIDTH;
+	public static int HEIGHT;
 	private Thread thread;
 	private boolean running = false;
 
@@ -44,6 +49,10 @@ public class Game extends Canvas implements Runnable {
 	 * Initialize the core mechanics of the game
 	 */
 	public Game() {
+		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		WIDTH = gd.getDisplayMode().getWidth();
+		HEIGHT = gd.getDisplayMode().getHeight();
+
 		handler = new Handler();
 		hud = new HUD();
 		spawner = new Spawn1to10(this.handler, this.hud, this);
@@ -59,6 +68,7 @@ public class Game extends Canvas implements Runnable {
 		this.addKeyListener(new KeyInput(this.handler, this, this.hud, this.player, this.spawner, this.upgrades));
 		this.addMouseListener(mouseListener);
 		new Window((int) WIDTH, (int) HEIGHT, "Wave Game", this);
+
 	}
 
 	/**
@@ -92,6 +102,8 @@ public class Game extends Canvas implements Runnable {
 		double delta = 0;
 		long timer = System.currentTimeMillis();
 		int frames = 0;
+
+
 		while (running) {
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
@@ -106,6 +118,8 @@ public class Game extends Canvas implements Runnable {
 
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
+				System.out.println("Screen Height = " + HEIGHT);
+				System.out.println("Screen Width = " + WIDTH);
 				System.out.println("FPS: " + frames);
 				System.out.println(gameState);
 				System.out.println(Spawn1to10.LEVEL_SET);
@@ -167,7 +181,7 @@ public class Game extends Canvas implements Runnable {
 		if (gameState == STATE.Game) {// user is playing game, draw game objects
 			hud.render(g);
 		} else if (gameState == STATE.Menu || gameState == STATE.Help) {// user is in help or the menu, draw the menu
-																		// and help objects
+			// and help objects
 			menu.render(g);
 		} else if (gameState == STATE.Upgrade) {// user is on the upgrade screen, draw the upgrade screen
 			upgradeScreen.render(g);
@@ -181,10 +195,10 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	/**
-	 * 
+	 *
 	 * Constantly checks bounds, makes sure players, enemies, and info doesn't leave
 	 * screen
-	 * 
+	 *
 	 * @param var
 	 *            x or y location of entity
 	 * @param min
@@ -201,6 +215,18 @@ public class Game extends Canvas implements Runnable {
 		else
 			return var;
 	}
+
+//	public static int getScreenHeight(){
+//		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+//		int screenHeight = (int)screenSize.getHeight();
+//		return screenHeight;
+//	}
+//
+//	public static int getScreenWidth(){
+//		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+//		int screenWidth = (int)screenSize.getWidth();
+//		return screenWidth;
+//	}
 
 	public static void main(String[] args) {
 
