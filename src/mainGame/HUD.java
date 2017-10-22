@@ -20,6 +20,7 @@ public class HUD {
 
 	private int score = 00000000000;
 	private int level = 0;
+	String highScore = "";
 
 	private boolean regen = false;
 	private int timer = 60;
@@ -66,6 +67,8 @@ public class HUD {
 		g.drawString("Score: " + score, 15, 115);
 		g.drawString("Level: " + level, 15, 150);
 		g.drawString("Extra Lives: " + extraLives, 15, 185);
+		g.drawString("High Score: " + highScore, 2200, 35);
+
 
 		if (ability.equals("freezeTime")) {
 			g.drawString("Time Freezes: " + abilityUses, Game.WIDTH - 300, 64);
@@ -73,6 +76,12 @@ public class HUD {
 			g.drawString("Screen Clears: " + abilityUses, Game.WIDTH - 300, 64);
 		} else if (ability.equals("levelSkip")) {
 			g.drawString("Level Skips: " + abilityUses, Game.WIDTH - 300, 64);
+		}
+		
+		if (highScore.equals("")) {
+			//initialize high score
+			highScore = this.GetHighScore();
+			
 		}
 	}
 
@@ -146,5 +155,76 @@ public class HUD {
 
 	public void restoreHealth() {
 		this.health = healthMax;
+	}
+	public void CheckScore() {
+		
+		
+		if (highScore.equals(""))
+			return;
+		
+		
+		if (score > Integer.parseInt(highScore.split(" ")[1])) {
+			
+			String name = JOptionPane.showInputDialog("You set a new highscore, what is your name?");
+			highScore = name + " " + score;
+			
+			File scoreFile = new File("highscore.dat");
+			if (!scoreFile.exists()) {
+			
+				try {
+					scoreFile.createNewFile();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			FileWriter writeFile = null; 
+			BufferedWriter writer = null;
+			try {
+				writeFile = new FileWriter(scoreFile);
+				writer = new BufferedWriter(writeFile);
+				writer.write(this.highScore);
+			}
+			catch (Exception e) {
+				//errors
+		
+			}
+			finally {
+				try {
+					if (writer !=null) {
+						writer.close();
+					}
+				}
+				catch (Exception e) {}
+			
+			}
+			
+		}
+	}
+	
+	public String GetHighScore() {
+		
+		FileReader readFile = null;
+		BufferedReader reader = null;
+		try {
+		
+			readFile = new FileReader("highscore.dat");
+			reader = new BufferedReader(readFile);
+			return reader.readLine();
+		}
+		
+		catch (Exception e) {
+			return "Nobody: 0";
+		}
+		finally {
+			try {
+				if (reader != null)
+				reader.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }
