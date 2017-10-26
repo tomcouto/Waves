@@ -79,6 +79,44 @@ public class Menu {
 	}
 
 	public void render(Graphics g) {
+
+		//title location (should be centered)
+		int wavesHeight = (int)((Game.HEIGHT)*(0.1));
+		int wavesWidth = (int)((Game.WIDTH)*(0.4));
+
+		//play button location based on percent of screen size
+		int playHeight = (int)((Game.HEIGHT)*(0.9));
+		int playWidth = (int)((Game.WIDTH)*(0.1));
+		int playX = (int)((Game.HEIGHT)*(0.4));
+		int playY = (int)((Game.WIDTH)*(0.1));
+		int playTextX = (int)((Game.HEIGHT)*(0.77));
+		int playTextY = (int)((Game.WIDTH)*(0.17));
+
+		//help button location based on percent of screen size
+		int helpHeight = (int)((Game.HEIGHT)*(0.9));
+		int helpWidth = (int)((Game.WIDTH)*(0.1));
+		int helpX = (int)((Game.HEIGHT)*(0.4));
+		int helpY = (int)((Game.WIDTH)*(0.21));
+		int helpTextX = (int)((Game.HEIGHT)*(0.77));
+		int helpTextY = (int)((Game.WIDTH)*(0.27));
+
+		//credits button location based on percent of screen size
+		int creditsHeight = (int)((Game.HEIGHT)*(0.9));
+		int creditsWidth = (int)((Game.WIDTH)*(0.1));
+		int creditsX = (int)((Game.HEIGHT)*(0.4));
+		int creditsY = (int)((Game.WIDTH)*(0.32));
+		int creditsTextX = (int)((Game.HEIGHT)*(0.73));
+		int creditsTextY = (int)((Game.WIDTH)*(0.38));
+
+		//quit button location based on percent of screen size
+		int quitHeight = (int)((Game.HEIGHT)*(0.9));
+		int quitWidth = (int)((Game.WIDTH)*(0.1));
+		int quitX = (int)((Game.HEIGHT)*(0.4));
+		int quitY = (int)((Game.WIDTH)*(0.43));
+		int quitTextX = (int)((Game.HEIGHT)*(0.77));
+		int quitTextY = (int)((Game.WIDTH)*(0.49));
+
+
 		if (game.gameState == STATE.Menu) {
 			g.drawImage(img, 0, 0, Game.WIDTH, Game.HEIGHT, null);
 			handler.render(g);
@@ -87,53 +125,57 @@ public class Menu {
 
 			g.setFont(font);
 			g.setColor(Color.white);
-			g.drawString("Game Modes", 1140, 100);
-
-			g.setFont(font);
-			g.setColor(Color.white);
-			g.drawString("Loehle's Sandbox", 75, 100);
+			g.drawString("Waves", wavesWidth, wavesHeight);
 
 			g.setColor(Color.white);
-			g.drawRect(990, 135, 400, 400);
+			g.drawRect(playX, playY, playHeight, playWidth);
 			g.setFont(font2);
 			g.setColor(Color.white);
-			g.drawString("Waves", 1110, 215);
+			g.drawString("Play", playTextX, playTextY);
 
 			g.setColor(Color.white);
-			g.drawRect(1440, 135, 400, 400);
+			g.drawRect(helpX, helpY, helpHeight, helpWidth);
 			g.setFont(font2);
 			g.setColor(Color.white);
-			g.drawString("Bosses", 1550, 215);
+			g.drawString("Help", helpTextX, helpTextY);
 
 			g.setColor(Color.white);
-			g.drawRect(990, 585, 400, 400);
+			g.drawRect(creditsX, creditsY, creditsHeight, creditsWidth);
 			g.setFont(font2);
 			g.setColor(Color.white);
-			g.drawString("Attack", 1095, 665);
+			g.drawString("Credits", creditsTextX, creditsTextY);
 
 			g.setColor(Color.white);
-			g.drawRect(1440, 585, 400, 400);
+			g.drawRect(quitX, quitY, quitHeight, quitWidth);
 			g.setFont(font2);
 			g.setColor(Color.white);
-			g.drawString("Hunger", 1550, 665);
+			g.drawString("Quit", quitTextX, quitTextY);
 
-			g.setColor(Color.white);
-			g.drawRect(80, 135, 850, 250);
-			g.setFont(font);
-			g.setColor(Color.white);
-			g.drawString("Help", 400, 280);
+			/**
 
-			g.setColor(Color.white);
-			g.drawRect(80, 435, 850, 250);
-			g.setFont(font);
-			g.setColor(Color.white);
-			g.drawString("Credits", 340, 600);
+			 g.setFont(font);
+			 g.setColor(Color.white);
+			 g.drawString("Game Modes", 1140, 100);
 
-			g.setColor(Color.white);
-			g.drawRect(80, 735, 850, 250);
-			g.setFont(font);
-			g.setColor(Color.white);
-			g.drawString("Quit", 400, 900);
+			 g.setColor(Color.white);
+			 g.drawRect(1440, 135, 400, 400);
+			 g.setFont(font2);
+			 g.setColor(Color.white);
+			 g.drawString("Bosses", 1550, 215);
+
+			 g.setColor(Color.white);
+			 g.drawRect(990, 585, 400, 400);
+			 g.setFont(font2);
+			 g.setColor(Color.white);
+			 g.drawString("Attack", 1095, 665);
+
+			 g.setColor(Color.white);
+			 g.drawRect(1440, 585, 400, 400);
+			 g.setFont(font2);
+			 g.setColor(Color.white);
+			 g.drawString("Hunger", 1550, 665);
+
+			 **/
 
 		} else if (game.gameState == STATE.Help) {// if the user clicks on "help"
 			Font font = new Font("impact", 1, 50);

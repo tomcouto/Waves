@@ -90,8 +90,33 @@ public class MouseListener extends MouseAdapter {
 		}
 
 		else if (game.gameState == STATE.Menu) {
+
+			//play button location based on percent of screen size
+			int playHeight = (int)((Game.HEIGHT)*(0.9));
+			int playWidth = (int)((Game.WIDTH)*(0.1));
+			int playX = (int)((Game.HEIGHT)*(0.4));
+			int playY = (int)((Game.WIDTH)*(0.1));
+
+			//help button location based on percent of screen size
+			int helpHeight = (int)((Game.HEIGHT)*(0.9));
+			int helpWidth = (int)((Game.WIDTH)*(0.1));
+			int helpX = (int)((Game.HEIGHT)*(0.4));
+			int helpY = (int)((Game.WIDTH)*(0.21));
+
+			//credits button location based on percent of screen size
+			int creditsHeight = (int)((Game.HEIGHT)*(0.9));
+			int creditsWidth = (int)((Game.WIDTH)*(0.1));
+			int creditsX = (int)((Game.HEIGHT)*(0.4));
+			int creditsY = (int)((Game.WIDTH)*(0.32));
+
+			//quit button location based on percent of screen size
+			int quitHeight = (int)((Game.HEIGHT)*(0.9));
+			int quitWidth = (int)((Game.WIDTH)*(0.1));
+			int quitX = (int)((Game.HEIGHT)*(0.4));
+			int quitY = (int)((Game.WIDTH)*(0.43));
+
 			// Waves Button
-			if (mouseOver(mx, my, 990, 135, 400, 400)) {
+			if (mouseOver(mx, my, playX, playY, playHeight, playWidth)) {
 				handler.object.clear();
 				game.gameState = STATE.Game;
 				handler.addObject(player);
@@ -100,12 +125,12 @@ public class MouseListener extends MouseAdapter {
 			}
 
 			// Help Button
-			else if (mouseOver(mx, my, 80, 135, 850, 250)) {
+			else if (mouseOver(mx, my, helpX, helpY, helpHeight, helpWidth)) {
 				game.gameState = STATE.Help;
 			}
 
 			// Credits
-			else if (mouseOver(mx, my, 80, 435, 850, 250)) {
+			else if (mouseOver(mx, my, creditsX, creditsY, creditsHeight, creditsWidth)) {
 				JOptionPane.showMessageDialog(game,
 						"Made by Brandon Loehle for his "
 								+ "final project in AP Computer Science senior year, 2015 - 2016."
@@ -114,7 +139,7 @@ public class MouseListener extends MouseAdapter {
 			}
 
 			// Quit Button
-			else if (mouseOver(mx, my, 80, 735, 850, 250)) {
+			else if (mouseOver(mx, my, quitX, quitY, quitHeight, quitWidth)) {
 				System.exit(1);
 			}
 		}

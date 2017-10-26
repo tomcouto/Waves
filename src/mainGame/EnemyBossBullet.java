@@ -16,8 +16,8 @@ public class EnemyBossBullet extends GameObject {
 
 	private Handler handler;
 	Random r = new Random();
-	private int max = 15;
-	private int min = -15;
+	private int max = 50;
+	private int min = -50;
 
 	public EnemyBossBullet(double x, double y, ID id, Handler handler) {
 		super(x, y, id);
