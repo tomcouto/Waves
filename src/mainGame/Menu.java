@@ -52,8 +52,8 @@ public class Menu {
 			e.printStackTrace();
 		}
 
-		handler.addObject(new MenuFireworks((r.nextInt(Game.WIDTH) - 25), 500, 50, 50, 0, -2,
-				colorPick.get(r.nextInt(6)), ID.Firework, this.handler));
+		//handler.addObject(new MenuFireworks((r.nextInt(Game.WIDTH) - 25), 500, 50, 50, 0, -2,
+				//colorPick.get(r.nextInt(6)), ID.Firework, this.handler));
 	}
 
 	public void addColors() {
@@ -71,8 +71,8 @@ public class Menu {
 		if (timer <= 0) {
 			handler.object.clear();
 			colorIndex = r.nextInt(6);
-			handler.addObject(new MenuFireworks((r.nextInt(Game.WIDTH) - 25), 1080, 100, 100, 0, -4,
-					colorPick.get(colorIndex), ID.Firework, this.handler));
+			//handler.addObject(new MenuFireworks((r.nextInt(Game.WIDTH) - 25), 1080, 100, 100, 0, -4,
+					//colorPick.get(colorIndex), ID.Firework, this.handler));
 			timer = 300;
 		}
 		handler.tick();
