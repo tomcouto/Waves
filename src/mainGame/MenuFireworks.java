@@ -12,7 +12,7 @@ import java.util.Random;
  *
  */
 
-public class MenuFireworks extends GameObject {
+/*public class MenuFireworks extends GameObject {
 
 	private Handler handler;
 	private Random r;
@@ -103,3 +103,4 @@ public class MenuFireworks extends GameObject {
 	}
 
 }
+*/
