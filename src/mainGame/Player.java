@@ -24,6 +24,8 @@ public class Player extends GameObject {
 	private int damage;
 	private int playerWidth, playerHeight;
 	public static int playerSpeed = 10;
+	private Color playerColor = Color.white;
+
 
 	public Player(double x, double y, ID id, Handler handler, HUD hud, Game game) {
 		super(x, y, id);
@@ -43,7 +45,7 @@ public class Player extends GameObject {
 		y = Game.clamp(y, 0, Game.HEIGHT - 60);
 
 		// add the trail that follows it
-		handler.addObject(new Trail(x, y, ID.Trail, Color.white, playerWidth, playerHeight, 0.05, this.handler));
+		handler.addObject(new Trail(x, y, ID.Trail, playerColor, playerWidth, playerHeight, 0.05, this.handler));
 
 		collision();
 		checkIfDead();
@@ -70,6 +72,8 @@ public class Player extends GameObject {
 	public void collision() {
 
 		hud.updateScoreColor(Color.white);
+		updatepPlayerColor(Color.white);
+
 		for (int i = 0; i < handler.object.size(); i++) {
 			GameObject tempObject = handler.object.get(i);
 
@@ -83,6 +87,8 @@ public class Player extends GameObject {
 				if (getBounds().intersects(tempObject.getBounds())) {// player hit an enemy
 					hud.health -= damage;
 					hud.updateScoreColor(Color.red);
+					updatepPlayerColor(Color.red);
+
 				}
 
 			}
@@ -92,6 +98,8 @@ public class Player extends GameObject {
 				if (this.y <= 138 && tempObject.isMoving) {
 					hud.health -= 2;
 					hud.updateScoreColor(Color.red);
+					updatepPlayerColor(Color.red);
+
 				}
 			}
 
@@ -101,7 +109,7 @@ public class Player extends GameObject {
 	@Override
 	public void render(Graphics g) {
 
-		g.setColor(Color.white);
+		g.setColor(playerColor);
 		g.fillRect((int) x, (int) y, playerWidth, playerHeight);
 
 	}
@@ -118,6 +126,10 @@ public class Player extends GameObject {
 	public void setPlayerSize(int size) {
 		this.playerWidth = size;
 		this.playerHeight = size;
+	}
+	
+	public void updatepPlayerColor(Color color) {
+		this.playerColor = color;
 	}
 
 }
