@@ -19,7 +19,7 @@ import mainGame.Game.STATE;
 
 /**
  * The main menu
- * 
+ *
  * @author Brandon Loehle 5/30/16
  *
  */
@@ -47,13 +47,13 @@ public class Menu {
 
 		img = null;
 		try {
-			img = ImageIO.read(new File("images/background.jpg"));
+			img = ImageIO.read(new File("images/fire.jpg"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		//handler.addObject(new MenuFireworks((r.nextInt(Game.WIDTH) - 25), 500, 50, 50, 0, -2,
-				//colorPick.get(r.nextInt(6)), ID.Firework, this.handler));
+		//colorPick.get(r.nextInt(6)), ID.Firework, this.handler));
 	}
 
 	public void addColors() {
@@ -72,7 +72,7 @@ public class Menu {
 			handler.object.clear();
 			colorIndex = r.nextInt(6);
 			//handler.addObject(new MenuFireworks((r.nextInt(Game.WIDTH) - 25), 1080, 100, 100, 0, -4,
-					//colorPick.get(colorIndex), ID.Firework, this.handler));
+			//colorPick.get(colorIndex), ID.Firework, this.handler));
 			timer = 300;
 		}
 		handler.tick();
@@ -81,8 +81,8 @@ public class Menu {
 	public void render(Graphics g) {
 
 		//title location (should be centered)
-		int wavesHeight = (int)((Game.HEIGHT)*(0.1));
-		int wavesWidth = (int)((Game.WIDTH)*(0.4));
+		int wavesHeight = (int)((Game.HEIGHT)*(0.2));
+		int wavesWidth = (int)((Game.WIDTH)*(0.2));
 
 		//play button location based on percent of screen size
 		int playHeight = (int)((Game.HEIGHT)*(0.9));
@@ -148,33 +148,28 @@ public class Menu {
 			g.setColor(Color.white);
 			g.drawRect(quitX, quitY, quitHeight, quitWidth);
 			g.setFont(font2);
-			g.setColor(Color.white);
+			g.setColor(Color.red);
 			g.drawString("Quit", quitTextX, quitTextY);
 
 			/**
-
 			 g.setFont(font);
 			 g.setColor(Color.white);
 			 g.drawString("Game Modes", 1140, 100);
-
 			 g.setColor(Color.white);
 			 g.drawRect(1440, 135, 400, 400);
 			 g.setFont(font2);
 			 g.setColor(Color.white);
 			 g.drawString("Bosses", 1550, 215);
-
 			 g.setColor(Color.white);
 			 g.drawRect(990, 585, 400, 400);
 			 g.setFont(font2);
 			 g.setColor(Color.white);
 			 g.drawString("Attack", 1095, 665);
-
 			 g.setColor(Color.white);
 			 g.drawRect(1440, 585, 400, 400);
 			 g.setFont(font2);
 			 g.setColor(Color.white);
 			 g.drawString("Hunger", 1550, 665);
-
 			 **/
 
 		} else if (game.gameState == STATE.Help) {// if the user clicks on "help"
