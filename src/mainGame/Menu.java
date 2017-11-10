@@ -86,7 +86,7 @@ public class Menu {
 
 		//play button location based on percent of screen size
 		int playHeight = (int)((Game.HEIGHT)*(.3));
-		int playWidth = (int)((Game.WIDTH)*(0.07));
+		int playWidth = (int)((Game.WIDTH)*(0.09));
 		int playX = (int)((Game.HEIGHT)*(0.2));
 		int playY = (int)((Game.WIDTH)*(0.1));
 		int playTextX = (int)((Game.HEIGHT)*(0.25));
@@ -192,3 +192,4 @@ public class Menu {
 
 	}
 
+}
