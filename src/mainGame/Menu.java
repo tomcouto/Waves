@@ -81,39 +81,39 @@ public class Menu {
 	public void render(Graphics g) {
 
 		//title location (should be centered)
-		int wavesHeight = (int)((Game.HEIGHT)*(0.2));
-		int wavesWidth = (int)((Game.WIDTH)*(0.2));
+		int wavesHeight = (int)((Game.HEIGHT)*(0.1));
+		int wavesWidth = (int)((Game.WIDTH)*(0.1));
 
 		//play button location based on percent of screen size
-		int playHeight = (int)((Game.HEIGHT)*(0.9));
-		int playWidth = (int)((Game.WIDTH)*(0.1));
-		int playX = (int)((Game.HEIGHT)*(0.4));
+		int playHeight = (int)((Game.HEIGHT)*(.3));
+		int playWidth = (int)((Game.WIDTH)*(0.07));
+		int playX = (int)((Game.HEIGHT)*(0.2));
 		int playY = (int)((Game.WIDTH)*(0.1));
-		int playTextX = (int)((Game.HEIGHT)*(0.77));
-		int playTextY = (int)((Game.WIDTH)*(0.17));
+		int playTextX = (int)((Game.HEIGHT)*(0.25));
+		int playTextY = (int)((Game.WIDTH)*(0.15));
 
 		//help button location based on percent of screen size
-		int helpHeight = (int)((Game.HEIGHT)*(0.9));
+		int helpHeight = (int)((Game.HEIGHT)*(0.3));
 		int helpWidth = (int)((Game.WIDTH)*(0.1));
-		int helpX = (int)((Game.HEIGHT)*(0.4));
-		int helpY = (int)((Game.WIDTH)*(0.21));
-		int helpTextX = (int)((Game.HEIGHT)*(0.77));
+		int helpX = (int)((Game.HEIGHT)*(0.2));
+		int helpY = (int)((Game.WIDTH)*(0.2));
+		int helpTextX = (int)((Game.HEIGHT)*(0.26));
 		int helpTextY = (int)((Game.WIDTH)*(0.27));
 
 		//credits button location based on percent of screen size
-		int creditsHeight = (int)((Game.HEIGHT)*(0.9));
+		int creditsHeight = (int)((Game.HEIGHT)*(0.3));
 		int creditsWidth = (int)((Game.WIDTH)*(0.1));
-		int creditsX = (int)((Game.HEIGHT)*(0.4));
+		int creditsX = (int)((Game.HEIGHT)*(0.2));
 		int creditsY = (int)((Game.WIDTH)*(0.32));
-		int creditsTextX = (int)((Game.HEIGHT)*(0.73));
+		int creditsTextX = (int)((Game.HEIGHT)*(0.25));
 		int creditsTextY = (int)((Game.WIDTH)*(0.38));
 
 		//quit button location based on percent of screen size
-		int quitHeight = (int)((Game.HEIGHT)*(0.9));
+		int quitHeight = (int)((Game.HEIGHT)*(0.3));
 		int quitWidth = (int)((Game.WIDTH)*(0.1));
-		int quitX = (int)((Game.HEIGHT)*(0.4));
+		int quitX = (int)((Game.HEIGHT)*(0.2));
 		int quitY = (int)((Game.WIDTH)*(0.43));
-		int quitTextX = (int)((Game.HEIGHT)*(0.77));
+		int quitTextX = (int)((Game.HEIGHT)*(0.25));
 		int quitTextY = (int)((Game.WIDTH)*(0.49));
 
 
@@ -128,27 +128,27 @@ public class Menu {
 			g.drawString("Waves", wavesWidth, wavesHeight);
 
 			g.setColor(Color.white);
-			g.drawRect(playX, playY, playHeight, playWidth);
+			g.drawRoundRect(playX, playY, playHeight, playWidth, 80, 80);
 			g.setFont(font2);
 			g.setColor(Color.white);
 			g.drawString("Play", playTextX, playTextY);
 
 			g.setColor(Color.white);
-			g.drawRect(helpX, helpY, helpHeight, helpWidth);
+			g.drawRoundRect(helpX, helpY, helpHeight, helpWidth, 80, 80);
 			g.setFont(font2);
 			g.setColor(Color.white);
 			g.drawString("Help", helpTextX, helpTextY);
 
 			g.setColor(Color.white);
-			g.drawRect(creditsX, creditsY, creditsHeight, creditsWidth);
+			g.drawRoundRect(creditsX, creditsY, creditsHeight, creditsWidth, 80, 80);
 			g.setFont(font2);
 			g.setColor(Color.white);
 			g.drawString("Credits", creditsTextX, creditsTextY);
 
 			g.setColor(Color.white);
-			g.drawRect(quitX, quitY, quitHeight, quitWidth);
+			g.drawRoundRect(quitX, quitY, quitHeight, quitWidth, 80, 80);
 			g.setFont(font2);
-			g.setColor(Color.red);
+			g.setColor(Color.black);
 			g.drawString("Quit", quitTextX, quitTextY);
 
 			/**
@@ -192,4 +192,3 @@ public class Menu {
 
 	}
 
-}
