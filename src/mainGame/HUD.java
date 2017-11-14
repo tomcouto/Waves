@@ -1,6 +1,7 @@
 package mainGame;
 
 import java.awt.Color;
+
 import java.awt.Font;
 import java.awt.Graphics;
 import java.io.BufferedReader;
@@ -27,7 +28,7 @@ public class HUD {
 
 	private int score = 00000000000;
 	private int level = 0;
-	String highScore = "";
+	public String highScore = "";
 
 	private boolean regen = false;
 	private int timer = 60;
@@ -49,6 +50,8 @@ public class HUD {
 		greenValue = health * healthBarModifier;
 
 		score++;
+		
+		
 
 		if (regen) {// regenerates health if that ability has been unlocked
 			timer--;
@@ -56,6 +59,7 @@ public class HUD {
 				health += 1;
 				timer = 60;
 			}
+		
 		}
 	}
 
@@ -74,8 +78,8 @@ public class HUD {
 		g.drawString("Score: " + score, 15, 115);
 		g.drawString("Level: " + level, 15, 150);
 		g.drawString("Extra Lives: " + extraLives, 15, 185);
-		g.drawString("High Score: " + highScore, 2200, 35);
-
+		//g.drawString("Leaderboard", 2300, 35);
+		g.drawString("High Score: " + highScore, 2150, 35);
 
 		if (ability.equals("freezeTime")) {
 			g.drawString("Time Freezes: " + abilityUses, Game.WIDTH - 300, 64);
@@ -90,6 +94,8 @@ public class HUD {
 			highScore = this.GetHighScore();
 			
 		}
+	
+			
 	}
 
 	public void setAbility(String ability) {
@@ -115,7 +121,7 @@ public class HUD {
 	public int getScore() {
 		return score;
 	}
-
+	
 	public int getLevel() {
 		return level;
 	}
@@ -163,6 +169,10 @@ public class HUD {
 	public void restoreHealth() {
 		this.health = healthMax;
 	}
+	
+	/**
+	 * 
+	 */
 	public void CheckScore() {
 		
 		
@@ -210,6 +220,10 @@ public class HUD {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String GetHighScore() {
 		
 		FileReader readFile = null;
