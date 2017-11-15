@@ -123,6 +123,7 @@ public class Game extends Canvas implements Runnable {
 				System.out.println("FPS: " + frames);
 				System.out.println(gameState);
 				System.out.println(Spawn1to10.LEVEL_SET);
+				System.out.println(hud.highScore);
 				frames = 0;
 			}
 		}
