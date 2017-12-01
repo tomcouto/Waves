@@ -1,8 +1,7 @@
 package mainGame;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.*;
+import java.net.URL;
 
 /**
  * A type of enemy in the game
@@ -16,11 +15,13 @@ public class EnemySmart extends GameObject {
 	private Handler handler;
 	private GameObject player;
 	private int speed;
+	private Image img;
 
 	public EnemySmart(double x, double y, int speed, ID id, Handler handler) {
 		super(x, y, id);
 		this.handler = handler;
 		this.speed = speed;
+		img = getImage("images/enemychase.png");
 
 		for (int i = 0; i < handler.object.size(); i++) {
 			if (handler.object.get(i).getId() == ID.Player)
@@ -46,13 +47,26 @@ public class EnemySmart extends GameObject {
 		// if (this.y <= 0 || this.y >= Game.HEIGHT - 40) velY *= -1;
 		// if (this.x <= 0 || this.x >= Game.WIDTH - 16) velX *= -1;
 
-		handler.addObject(new Trail(x, y, ID.Trail, Color.green, 16, 16, 0.025, this.handler));
+		handler.addObject(new Trail(x, y, ID.Trail, Color.white, 10, 10, 0.025, this.handler));
 
 	}
 
+	public Image getImage(String path) {
+		Image image = null;
+		try {
+			URL imageURL = Game.class.getResource(path);
+			image = Toolkit.getDefaultToolkit().getImage(imageURL);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return image;
+	}
+
 	public void render(Graphics g) {
-		g.setColor(Color.green);
-		g.fillRect((int) x, (int) y, 16, 16);
+		//g.setColor(Color.green);
+		//g.fillRect((int) x, (int) y, 16, 16);
+		g.drawImage(img, (int) this.x, (int) this.y, 50, 50, null);
 
 	}
 
