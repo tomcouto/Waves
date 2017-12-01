@@ -18,8 +18,9 @@ public class EnemyBossBullet extends GameObject {
 	Random r = new Random();
 	private int max = 50;
 	private int min = -50;
+	
 
-	public EnemyBossBullet(double x, double y, ID id, Handler handler) {
+	public EnemyBossBullet(double locX, double locY, double x, double y, ID id, Handler handler) {
 		super(x, y, id);
 		this.handler = handler;
 		velX = (r.nextInt((max - min) + 1) + min);// OFFICIAL WAY TO GET A RANGE FOR randInt()
@@ -36,13 +37,13 @@ public class EnemyBossBullet extends GameObject {
 		if (this.y >= Game.HEIGHT)
 			handler.removeObject(this);
 
-		handler.addObject(new Trail(x, y, ID.Trail, Color.blue, 16, 16, 0.025, this.handler));
+		handler.addObject(new Trail(x, y, ID.Trail, Color.red, 16, 16, 0.025, this.handler));
 
 	}
 
 	public void render(Graphics g) {
-		g.setColor(Color.BLUE);
-		g.fillOval((int) x, (int) y, 16, 16);
+		g.setColor(Color.red);
+		g.fillRect((int) x, (int) y, 16, 16);
 	}
 
 	@Override
