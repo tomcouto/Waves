@@ -1,8 +1,7 @@
 package mainGame;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.*;
+import java.net.URL;
 
 /**
  * A type of enemy in the game
@@ -21,6 +20,7 @@ public class EnemyShooter extends GameObject {
 	private double bulletVelX;
 	private double bulletVelY;
 	private int bulletSpeed;
+	private Image img;
 
 	public EnemyShooter(double x, double y, int sizeX, int sizeY, int bulletSpeed, ID id, Handler handler) {
 		super(x, y, id);
@@ -31,6 +31,7 @@ public class EnemyShooter extends GameObject {
 		this.sizeY = sizeY;
 		this.timer = 60;
 		this.bulletSpeed = bulletSpeed;
+		img = getImage("images/enemysquid.png");
 
 		for (int i = 0; i < handler.object.size(); i++) {
 			if (handler.object.get(i).getId() == ID.Player)
@@ -47,7 +48,7 @@ public class EnemyShooter extends GameObject {
 		if (this.x <= 0 || this.x >= Game.WIDTH - 16)
 			velX *= -1;
 
-		handler.addObject(new Trail(x, y, ID.Trail, Color.yellow, this.sizeX, this.sizeY, 0.025, this.handler));
+		//handler.addObject(new Trail(x, y, ID.Trail, Color.yellow, this.sizeX, this.sizeY, 0.025, this.handler));
 
 		timer--;
 		if (timer <= 0) {
@@ -56,6 +57,18 @@ public class EnemyShooter extends GameObject {
 			timer = 10;
 		}
 
+	}
+
+	public Image getImage(String path) {
+		Image image = null;
+		try {
+			URL imageURL = Game.class.getResource(path);
+			image = Toolkit.getDefaultToolkit().getImage(imageURL);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return image;
 	}
 
 	public void shoot() {
@@ -82,8 +95,9 @@ public class EnemyShooter extends GameObject {
 	}
 
 	public void render(Graphics g) {
-		g.setColor(Color.yellow);
-		g.fillRect((int) x, (int) y, this.sizeX, this.sizeY);
+		g.drawImage(img, (int) this.x, (int) this.y, 200, 200, null);
+		//g.setColor(Color.yellow);
+		//g.fillRect((int) x, (int) y, this.sizeX, this.sizeY);
 
 	}
 
