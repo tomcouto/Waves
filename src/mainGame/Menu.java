@@ -19,7 +19,7 @@ import mainGame.Game.STATE;
 
 /**
  * The main menu
- *
+ * 
  * @author Brandon Loehle 5/30/16
  *
  */
@@ -37,7 +37,7 @@ public class Menu {
 	private Spawn1to10 spawner;
 
 	public Menu(Game game, Handler handler, HUD hud, Spawn1to10 spawner) {
-		this.game = game;
+		this.game = game; 
 		this.handler = handler;
 		this.hud = hud;
 		this.spawner = spawner;
@@ -53,7 +53,7 @@ public class Menu {
 		}
 
 		//handler.addObject(new MenuFireworks((r.nextInt(Game.WIDTH) - 25), 500, 50, 50, 0, -2,
-		//colorPick.get(r.nextInt(6)), ID.Firework, this.handler));
+			//	colorPick.get(r.nextInt(6)), ID.Firework, this.handler));
 	}
 
 	public void addColors() {
@@ -72,7 +72,7 @@ public class Menu {
 			handler.object.clear();
 			colorIndex = r.nextInt(6);
 			//handler.addObject(new MenuFireworks((r.nextInt(Game.WIDTH) - 25), 1080, 100, 100, 0, -4,
-			//colorPick.get(colorIndex), ID.Firework, this.handler));
+					//colorPick.get(colorIndex), ID.Firework, this.handler));
 			timer = 300;
 		}
 		handler.tick();
@@ -85,7 +85,7 @@ public class Menu {
 		int wavesWidth = (int)((Game.WIDTH)*(0.1));
 
 		//play button location based on percent of screen size
-		int playHeight = (int)((Game.HEIGHT)*(.3));
+		int playHeight = (int)((Game.HEIGHT)*(0.3));
 		int playWidth = (int)((Game.WIDTH)*(0.09));
 		int playX = (int)((Game.HEIGHT)*(0.2));
 		int playY = (int)((Game.WIDTH)*(0.1));
@@ -152,24 +152,29 @@ public class Menu {
 			g.drawString("Quit", quitTextX, quitTextY);
 
 			/**
+
 			 g.setFont(font);
 			 g.setColor(Color.white);
 			 g.drawString("Game Modes", 1140, 100);
+
 			 g.setColor(Color.white);
 			 g.drawRect(1440, 135, 400, 400);
 			 g.setFont(font2);
 			 g.setColor(Color.white);
 			 g.drawString("Bosses", 1550, 215);
+
 			 g.setColor(Color.white);
 			 g.drawRect(990, 585, 400, 400);
 			 g.setFont(font2);
 			 g.setColor(Color.white);
 			 g.drawString("Attack", 1095, 665);
+
 			 g.setColor(Color.white);
 			 g.drawRect(1440, 585, 400, 400);
 			 g.setFont(font2);
 			 g.setColor(Color.white);
 			 g.drawString("Hunger", 1550, 665);
+
 			 **/
 
 		} else if (game.gameState == STATE.Help) {// if the user clicks on "help"
@@ -188,6 +193,42 @@ public class Menu {
 			g.setColor(Color.white);
 			g.drawRect(850, 300, 200, 64);
 			g.drawString("Back", 920, 340);
+		}
+		
+		else if (game.gameState == STATE.Select) {
+			g.drawImage(img, 0, 0, Game.WIDTH, Game.HEIGHT, null);
+			handler.render(g);
+			Font font = new Font("Amoebic", 1, 100);
+			Font font2 = new Font("Amoebic", 1, 60);
+
+			g.setFont(font);
+			g.setColor(Color.white);
+			g.drawString("SELECT DIFFICULTY", wavesWidth - 200, wavesHeight);
+
+			g.setColor(Color.white);
+			g.drawRoundRect(playX, playY, playHeight, playWidth, 80, 80);
+			g.setFont(font2);
+			g.setColor(Color.white);
+			g.drawString("Normal", playTextX, playTextY);
+
+			g.setColor(Color.white);
+			g.drawRoundRect(helpX, helpY, helpHeight, helpWidth, 80, 80);
+			g.setFont(font2);
+			g.setColor(Color.white);
+			g.drawString("Hard", helpTextX, helpTextY);
+
+			/*g.setColor(Color.white);
+			g.drawRect(creditsX, creditsY, creditsHeight, creditsWidth);
+			g.setFont(font2);
+			g.setColor(Color.white);
+			g.drawString("Credits", creditsTextX, creditsTextY);
+			*/
+
+			g.setColor(Color.white);
+			g.drawRoundRect(quitX, quitY, quitHeight, quitWidth, 80, 80);
+			g.setFont(font2);
+			g.setColor(Color.black);
+			g.drawString("Back", quitTextX, quitTextY);
 		}
 
 	}
