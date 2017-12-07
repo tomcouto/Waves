@@ -51,6 +51,8 @@ public class HUD {
 
 		score++;
 		
+		increaseLife();
+		
 		
 
 		if (regen) {// regenerates health if that ability has been unlocked
@@ -147,6 +149,13 @@ public class HUD {
 	}
 
 	public int getExtraLives() {
+		return this.extraLives;
+	}
+	
+	public int increaseLife() {
+		if (score %1000 == 0) {
+			setExtraLives(getExtraLives() + 1);
+		}
 		return this.extraLives;
 	}
 
