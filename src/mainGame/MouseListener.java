@@ -42,6 +42,8 @@ public class MouseListener extends MouseAdapter {
 		int mx = e.getX();
 		int my = e.getY();
 
+		AudioPlayer.getSound("menu_sound").play((float)1, (float)100);
+
 		if (game.gameState == STATE.GameOver) {
 			handler.object.clear();
 			upgrades.resetUpgrades();
@@ -91,32 +93,35 @@ public class MouseListener extends MouseAdapter {
 
 		else if (game.gameState == STATE.Menu) {
 
+			game.gameState = STATE.Select; 
+
 			//play button location based on percent of screen size
-			int playHeight = (int)((Game.HEIGHT)*(0.9));
-			int playWidth = (int)((Game.WIDTH)*(0.1));
-			int playX = (int)((Game.HEIGHT)*(0.4));
+			int playHeight = (int)((Game.HEIGHT)*(0.3));
+			int playWidth = (int)((Game.WIDTH)*(0.09));
+			int playX = (int)((Game.HEIGHT)*(0.2));
 			int playY = (int)((Game.WIDTH)*(0.1));
+			
 
 			//help button location based on percent of screen size
-			int helpHeight = (int)((Game.HEIGHT)*(0.9));
+			int helpHeight = (int)((Game.HEIGHT)*(0.3));
 			int helpWidth = (int)((Game.WIDTH)*(0.1));
-			int helpX = (int)((Game.HEIGHT)*(0.4));
-			int helpY = (int)((Game.WIDTH)*(0.21));
+			int helpX = (int)((Game.HEIGHT)*(0.2));
+			int helpY = (int)((Game.WIDTH)*(0.2));
 
 			//credits button location based on percent of screen size
-			int creditsHeight = (int)((Game.HEIGHT)*(0.9));
+			int creditsHeight = (int)((Game.HEIGHT)*(0.3));
 			int creditsWidth = (int)((Game.WIDTH)*(0.1));
-			int creditsX = (int)((Game.HEIGHT)*(0.4));
+			int creditsX = (int)((Game.HEIGHT)*(0.2));
 			int creditsY = (int)((Game.WIDTH)*(0.32));
 
 			//quit button location based on percent of screen size
-			int quitHeight = (int)((Game.HEIGHT)*(0.9));
+			int quitHeight = (int)((Game.HEIGHT)*(0.3));
 			int quitWidth = (int)((Game.WIDTH)*(0.1));
-			int quitX = (int)((Game.HEIGHT)*(0.4));
+			int quitX = (int)((Game.HEIGHT)*(0.2));
 			int quitY = (int)((Game.WIDTH)*(0.43));
 
 			// Waves Button
-			if (mouseOver(mx, my, playX, playY, playHeight, playWidth)) {
+			/*if (mouseOver(mx, my, playX, playY, playHeight, playWidth)) {
 				handler.object.clear();
 				game.gameState = STATE.Game;
 				handler.addObject(player);
@@ -150,7 +155,86 @@ public class MouseListener extends MouseAdapter {
 				game.gameState = STATE.Menu;
 				return;
 			}
+			 */
 		}
+		else if (game.gameState == STATE.Select) {
+
+			game.gameState = STATE.Select;
+
+
+			//normal
+			//play button location based on percent of screen size
+			int playHeight = (int)((Game.HEIGHT)*(0.3));
+			int playWidth = (int)((Game.WIDTH)*(0.09));
+			int playX = (int)((Game.HEIGHT)*(0.2));
+			int playY = (int)((Game.WIDTH)*(0.1));
+
+			//hard
+			//help button location based on percent of screen size
+			int helpHeight = (int)((Game.HEIGHT)*(0.3));
+			int helpWidth = (int)((Game.WIDTH)*(0.1));
+			int helpX = (int)((Game.HEIGHT)*(0.2));
+			int helpY = (int)((Game.WIDTH)*(0.2));
+
+			//credits button location based on percent of screen size
+			//int creditsHeight = (int)((Game.HEIGHT)*(0.9));
+			//int creditsWidth = (int)((Game.WIDTH)*(0.1));
+			//int creditsX = (int)((Game.HEIGHT)*(0.4));
+			//int creditsY = (int)((Game.WIDTH)*(0.32));
+
+			//back
+			//quit button location based on percent of screen size
+			int quitHeight = (int)((Game.HEIGHT)*(0.3));
+			int quitWidth = (int)((Game.WIDTH)*(0.1));
+			int quitX = (int)((Game.HEIGHT)*(0.2));
+			int quitY = (int)((Game.WIDTH)*(0.43));
+
+			// normal Button
+			if (mouseOver(mx, my, playX, playY, playHeight, playWidth)) {
+				handler.object.clear();
+				game.gameState = STATE.Game;
+				handler.addObject(player);
+				// handler.addPickup(new PickupHealth(100, 100, ID.PickupHealth,
+				// "images/PickupHealth.png", handler));
+				game.diff = 0;
+			}
+
+			// hard Button
+			else if (mouseOver(mx, my, helpX, helpY, helpHeight, helpWidth)) {
+				handler.object.clear();
+				game.gameState = STATE.Game;
+				handler.addObject(player);
+				
+				game.diff = 1;
+			}
+
+			// Credits
+			//else if (mouseOver(mx, my, creditsX, creditsY, creditsHeight, creditsWidth)) {
+				//JOptionPane.showMessageDialog(game,
+					//	"Made by Brandon Loehle for his "
+						//		+ "final project in AP Computer Science senior year, 2015 - 2016."
+							//	+ "\n\nThis game is grossly unfinished with minor bugs. However,"
+								//+ " it is 100% playable, enjoy!");
+			//}
+
+			// Quit Button
+			else if (mouseOver(mx, my, quitX, quitY, quitHeight, quitWidth)) {
+				
+					game.gameState = STATE.Menu;
+					return;
+				
+			}
+		}
+
+		// Back Button for Help screen
+		else if (game.gameState == STATE.Help) {
+			if (mouseOver(mx, my, 850, 300, 200, 64)) {
+				game.gameState = STATE.Menu;
+				return;
+			}
+			 
+		}
+
 	}
 
 	public void mouseReleased(MouseEvent e) {
