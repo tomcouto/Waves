@@ -9,7 +9,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 
-/**
+/**1
  * Main game class. This class is the driver class and it follows the Holder
  * pattern. It houses references to ALL of the components of the game
  *
@@ -24,7 +24,6 @@ public class Game extends Canvas implements Runnable {
 	public static int HEIGHT;
 	private Thread thread;
 	private boolean running = false;
-
 	private Handler handler;
 	private HUD hud;
 	private Spawn1to10 spawner;
@@ -38,11 +37,17 @@ public class Game extends Canvas implements Runnable {
 	public STATE gameState = STATE.Menu;
 	public static int TEMP_COUNTER;
 
+	//0 = normal 
+	//1 = hard
+	public int diff = 0;
+
+	public static boolean paused = false;
+
 	/**
 	 * Used to switch between each of the screens shown to the user
 	 */
 	public enum STATE {
-		Menu, Help, Game, GameOver, Upgrade,
+		Menu, Select, Help, Game, GameOver, Upgrade,
 	};
 
 	/**
@@ -69,6 +74,10 @@ public class Game extends Canvas implements Runnable {
 		this.addMouseListener(mouseListener);
 		new Window((int) WIDTH, (int) HEIGHT, "Wave Game", this);
 
+			AudioPlayer.load();
+			AudioPlayer.getMusic("music").loop((float)1, (float)1);
+		
+
 	}
 
 	/**
@@ -89,6 +98,8 @@ public class Game extends Canvas implements Runnable {
 			e.printStackTrace();
 		}
 	}
+
+
 
 	/**
 	 * Best Java game loop out there (used by Notch!)
@@ -137,21 +148,29 @@ public class Game extends Canvas implements Runnable {
 	 * appearance, etc).
 	 */
 	private void tick() {
-		handler.tick();// ALWAYS TICK HANDLER, NO MATTER IF MENU OR GAME SCREEN
+
 		if (gameState == STATE.Game) {// game is running
-			hud.tick();
-			if (Spawn1to10.LEVEL_SET == 1) {// user is on levels 1 thru 10, update them
-				spawner.tick();
-			} else if (Spawn1to10.LEVEL_SET == 2) {// user is on levels 10 thru 20, update them
-				spawner2.tick();
-			}
-		} else if (gameState == STATE.Menu || gameState == STATE.Help) {// user is on menu, update the menu items
-			menu.tick();
-		} else if (gameState == STATE.Upgrade) {// user is on upgrade screen, update the upgrade screen
-			upgradeScreen.tick();
-		} else if (gameState == STATE.GameOver) {// game is over, update the game over screen
-			gameOver.tick();
+
+			if(!paused) {
+				hud.tick();
+				handler.tick();// ALWAYS TICK HANDLER, NO MATTER IF MENU OR GAME SCREEN
+				if (Spawn1to10.LEVEL_SET == 1) {// user is on levels 1 thru 10, update them
+					spawner.tick();
+				} else if (Spawn1to10.LEVEL_SET == 2) {// user is on levels 10 thru 20, update them
+					spawner2.tick();
+				}
+			} else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.Select) {// user is on menu, update the menu items
+				menu.tick();
+				handler.tick();// ALWAYS TICK HANDLER, NO MATTER IF MENU OR GAME SCREEN
+			} else if (gameState == STATE.Upgrade) {// user is on upgrade screen, update the upgrade screen
+				upgradeScreen.tick();
+			} else if (gameState == STATE.GameOver) {// game is over, update the game over screen
+				gameOver.tick();
+			} 
 		}
+
+
+
 
 	}
 
@@ -179,9 +198,15 @@ public class Game extends Canvas implements Runnable {
 
 		handler.render(g); // ALWAYS RENDER HANDLER, NO MATTER IF MENU OR GAME SCREEN
 
+		if(paused) {
+			g.setColor(Color.WHITE);
+			g.drawString("PAUSED", 0, 0);
+
+		}
+
 		if (gameState == STATE.Game) {// user is playing game, draw game objects
 			hud.render(g);
-		} else if (gameState == STATE.Menu || gameState == STATE.Help) {// user is in help or the menu, draw the menu
+		} else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.Select) {// user is in help or the menu, draw the menu
 			// and help objects
 			menu.render(g);
 		} else if (gameState == STATE.Upgrade) {// user is on the upgrade screen, draw the upgrade screen
@@ -193,6 +218,7 @@ public class Game extends Canvas implements Runnable {
 		///////// Draw things above this//////////////
 		g.dispose();
 		bs.show();
+
 	}
 
 	/**
@@ -217,17 +243,17 @@ public class Game extends Canvas implements Runnable {
 			return var;
 	}
 
-//	public static int getScreenHeight(){
-//		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-//		int screenHeight = (int)screenSize.getHeight();
-//		return screenHeight;
-//	}
-//
-//	public static int getScreenWidth(){
-//		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-//		int screenWidth = (int)screenSize.getWidth();
-//		return screenWidth;
-//	}
+	//	public static int getScreenHeight(){
+	//		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	//		int screenHeight = (int)screenSize.getHeight();
+	//		return screenHeight;
+	//	}
+	//
+	//	public static int getScreenWidth(){
+	//		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	//		int screenWidth = (int)screenSize.getWidth();
+	//		return screenWidth;
+	//	}
 
 	public static void main(String[] args) {
 
