@@ -55,309 +55,619 @@ public class Spawn10to20 {
 		// restart();
 		// LEVEL_SET_2_RESET ++;
 		// }
-		if (levelNumber <= 0) {
-			levelTimer--;
-			if (tempCounter < 1) {
-				handler.addObject(new LevelText(Game.WIDTH / 2 - 675, Game.HEIGHT / 2 - 200, "Same levels...",
-						ID.Levels1to10Text));
-				handler.addObject(new LevelText(Game.WIDTH / 2 - 675, Game.HEIGHT / 2, "...but a little harder now",
-						ID.Levels1to10Text));
-				tempCounter++;
-			}
-			if (levelTimer <= 0) {
-				handler.clearEnemies();
-				tempCounter = 0;
-				levelNumber = levels.get(index);
+		if (game.diff == 0) {
+
+			if (levelNumber <= 0) {
+				levelTimer--;
+				if (tempCounter < 1) {
+					handler.addObject(new LevelText(Game.WIDTH / 2 - 675, Game.HEIGHT / 2 - 200, "Same levels...",
+							ID.Levels1to10Text));
+					handler.addObject(new LevelText(Game.WIDTH / 2 - 675, Game.HEIGHT / 2, "...but a little harder now",
+							ID.Levels1to10Text));
+					tempCounter++;
+				}
+				if (levelTimer <= 0) {
+					handler.clearEnemies();
+					tempCounter = 0;
+					levelNumber = levels.get(index);
+				}
+
 			}
 
-		}
+			else if (levelNumber == 1) {
+				timer--;
+				levelTimer--;
+				if (tempCounter < 1) {
+					levelTimer = 1500;
+					tempCounter++;
+				}
+				if (timer == 0) {
+					handler.addObject(
+							new EnemyBasic(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 13, 13, ID.EnemyBasic, handler));
+					timer = 80;
+				}
+				if (levelTimer == 0) {
+					handler.clearEnemies();
+					hud.setLevel(hud.getLevel() + 1);
+					timer = 40;
+					tempCounter = 0;
+					if (randomMax == 1) {
+						levelNumber = 101;
+					} else {
+						levels.remove(index);
+						randomMax--;
+						index = r.nextInt(randomMax);
+						levelNumber = levels.get(index);
+					}
+				}
+			} else if (levelNumber == 2) {
+				timer--;
+				levelTimer--;
+				if (tempCounter < 1) {
+					levelTimer = 1500;
+					tempCounter++;
+				}
+				if (timer == 30) {
+					handler.addObject(
+							new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 20, 2, ID.EnemySweep, handler));
+				} else if (timer == 20) {
+					handler.addObject(
+							new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 20, -2, ID.EnemySweep, handler));
+				} else if (timer == 10) {
+					handler.addObject(
+							new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 20, 4, ID.EnemySweep, handler));
+				} else if (timer == 0) {
+					handler.addObject(
+							new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 20, -4, ID.EnemySweep, handler));
+					timer = 45;
+				}
 
-		else if (levelNumber == 1) {
-			timer--;
-			levelTimer--;
-			if (tempCounter < 1) {
-				levelTimer = 1500;
-				tempCounter++;
-			}
-			if (timer == 0) {
-				handler.addObject(
-						new EnemyBasic(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 13, 13, ID.EnemyBasic, handler));
-				timer = 80;
-			}
-			if (levelTimer == 0) {
-				handler.clearEnemies();
-				hud.setLevel(hud.getLevel() + 1);
-				timer = 40;
-				tempCounter = 0;
-				if (randomMax == 1) {
-					levelNumber = 101;
-				} else {
-					levels.remove(index);
-					randomMax--;
-					index = r.nextInt(randomMax);
-					levelNumber = levels.get(index);
+				if (levelTimer == 0) {
+					handler.clearEnemies();
+					hud.setLevel(hud.getLevel() + 1);
+					tempCounter = 0;
+					if (randomMax == 1) {
+						levelNumber = 101;
+					} else {
+						levels.remove(index);
+						randomMax--;
+						index = r.nextInt(randomMax);
+						levelNumber = levels.get(index);
+					}
 				}
-			}
-		} else if (levelNumber == 2) {
-			timer--;
-			levelTimer--;
-			if (tempCounter < 1) {
-				levelTimer = 1500;
-				tempCounter++;
-			}
-			if (timer == 30) {
-				handler.addObject(
-						new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 20, 2, ID.EnemySweep, handler));
-			} else if (timer == 20) {
-				handler.addObject(
-						new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 20, -2, ID.EnemySweep, handler));
-			} else if (timer == 10) {
-				handler.addObject(
-						new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 20, 4, ID.EnemySweep, handler));
-			} else if (timer == 0) {
-				handler.addObject(
-						new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 20, -4, ID.EnemySweep, handler));
-				timer = 45;
+			} else if (levelNumber == 3) {
+				timer--;
+				levelTimer--;
+				if (tempCounter < 1) {
+					levelTimer = 1500;
+					tempCounter++;
+				}
+				if (timer == 0) {
+					handler.addObject(
+							new EnemySmart(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), -7, ID.EnemySmart, handler));
+					timer = 60;
+				}
+				if (levelTimer == 0) {
+					handler.clearEnemies();
+					hud.setLevel(hud.getLevel() + 1);
+					timer = 10;
+					tempCounter = 0;
+					if (randomMax == 1) {
+						levelNumber = 101;
+					} else {
+						levels.remove(index);
+						randomMax--;
+						index = r.nextInt(randomMax);
+						levelNumber = levels.get(index);
+					}
+				}
+			} else if (levelNumber == 4) {
+				levelTimer--;
+				if (tempCounter < 1) {
+					handler.addObject(new EnemyShooter(r.nextInt(Game.WIDTH) - 35, r.nextInt(Game.HEIGHT) - 75, 100, 100,
+							-30, ID.EnemyShooter, this.handler));
+					levelTimer = 1300;
+					tempCounter++;
+				}
+
+				if (levelTimer == 0) {
+					handler.clearEnemies();
+					hud.setLevel(hud.getLevel() + 1);
+					timer = 10;
+					tempCounter = 0;
+					if (randomMax == 1) {
+						levelNumber = 101;
+					} else {
+						levels.remove(index);
+						randomMax--;
+						index = r.nextInt(randomMax);
+						levelNumber = levels.get(index);
+					}
+				}
+			} else if (levelNumber == 5) {
+				timer--;
+				levelTimer--;
+				if (tempCounter < 1) {
+					levelTimer = 1400;
+					tempCounter++;
+				}
+				if (timer <= 0) {
+					handler.addObject(new EnemyBurst(-250, 250, 75, 75, 250, side[r.nextInt(4)], ID.EnemyBurst, handler));
+					timer = 120;
+				}
+
+				if (levelTimer == 0) {
+					handler.clearEnemies();
+					hud.setLevel(hud.getLevel() + 1);
+					timer = 10;
+					tempCounter = 0;
+					if (randomMax == 1) {
+						levelNumber = 101;
+					} else {
+						levels.remove(index);
+						randomMax--;
+						index = r.nextInt(randomMax);
+						levelNumber = levels.get(index);
+					}
+				}
+			} else if (levelNumber == 6) {
+				timer--;
+				levelTimer--;
+				if (tempCounter < 1) {
+					levelTimer = 1500;
+					tempCounter++;
+				}
+				if (timer == 0) {
+					handler.addObject(
+							new EnemyBasic(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 15, 15, ID.EnemyBasic, handler));
+					timer = 50;
+				}
+				if (levelTimer == 0) {
+					handler.clearEnemies();
+					hud.setLevel(hud.getLevel() + 1);
+					timer = 40;
+					tempCounter = 0;
+					if (randomMax == 1) {
+						levelNumber = 101;
+					} else {
+						levels.remove(index);
+						randomMax--;
+						index = r.nextInt(randomMax);
+						levelNumber = levels.get(index);
+					}
+				}
+			} else if (levelNumber == 7) {
+				timer--;
+				levelTimer--;
+				if (tempCounter < 1) {
+					levelTimer = 1500;
+					tempCounter++;
+				}
+				if (timer == 35) {
+					handler.addObject(
+							new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 30, 2, ID.EnemySweep, handler));
+				} else if (timer == 25) {
+					handler.addObject(
+							new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 30, -2, ID.EnemySweep, handler));
+				} else if (timer == 15) {
+					handler.addObject(
+							new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 30, 4, ID.EnemySweep, handler));
+				} else if (timer == 0) {
+					handler.addObject(
+							new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 30, -4, ID.EnemySweep, handler));
+					timer = 30;
+				}
+
+				if (levelTimer == 0) {
+					handler.clearEnemies();
+					hud.setLevel(hud.getLevel() + 1);
+					tempCounter = 0;
+					if (randomMax == 1) {
+						levelNumber = 101;
+					} else {
+						levels.remove(index);
+						randomMax--;
+						index = r.nextInt(randomMax);
+						levelNumber = levels.get(index);
+					}
+				}
+			} else if (levelNumber == 8) {
+				timer--;
+				levelTimer--;
+				if (tempCounter < 1) {
+					levelTimer = 1000;
+					tempCounter++;
+				}
+				if (timer == 0) {
+					handler.addObject(
+							new EnemySmart(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), -9, ID.EnemySmart, handler));
+					timer = 50;
+				}
+				if (levelTimer == 0) {
+					handler.clearEnemies();
+					hud.setLevel(hud.getLevel() + 1);
+					timer = 10;
+					tempCounter = 0;
+					if (randomMax == 1) {
+						levelNumber = 101;
+					} else {
+						levels.remove(index);
+						randomMax--;
+						index = r.nextInt(randomMax);
+						levelNumber = levels.get(index);
+					}
+				}
+			} else if (levelNumber == 9) {
+				levelTimer--;
+				if (tempCounter < 1) {
+					handler.addObject(new EnemyShooter(r.nextInt(Game.WIDTH) - 35, r.nextInt(Game.HEIGHT) - 75, 200, 200,
+							-40, ID.EnemyShooter, this.handler));
+					levelTimer = 2500;
+					tempCounter++;
+				}
+
+				if (levelTimer == 0) {
+					handler.clearEnemies();
+					hud.setLevel(hud.getLevel() + 1);
+					timer = 10;
+					tempCounter = 0;
+					if (randomMax == 1) {
+						levelNumber = 101;
+					} else {
+						levels.remove(index);
+						randomMax--;
+						index = r.nextInt(randomMax);
+						levelNumber = levels.get(index);
+					}
+				}
+			} else if (levelNumber == 10) {
+				timer--;
+				levelTimer--;
+				if (tempCounter < 1) {
+					levelTimer = 1400;
+					tempCounter++;
+				}
+				if (timer <= 0) {
+					handler.addObject(new EnemyBurst(-300, 300, 60, 60, 300, side[r.nextInt(4)], ID.EnemyBurst, handler));
+					timer = 60;
+				}
+
+				if (levelTimer == 0) {
+					handler.clearEnemies();
+					hud.setLevel(hud.getLevel() + 1);
+					timer = 10;
+					tempCounter = 0;
+					if (randomMax == 1) {
+						levelNumber = 101;
+					} else {
+						levels.remove(index);
+						randomMax--;
+						index = r.nextInt(randomMax);
+						levelNumber = levels.get(index);
+					}
+				}
 			}
 
-			if (levelTimer == 0) {
-				handler.clearEnemies();
-				hud.setLevel(hud.getLevel() + 1);
-				tempCounter = 0;
-				if (randomMax == 1) {
-					levelNumber = 101;
-				} else {
-					levels.remove(index);
-					randomMax--;
-					index = r.nextInt(randomMax);
-					levelNumber = levels.get(index);
+			else if (levelNumber == 101) {
+				if (tempCounter < 1) {
+					handler.addObject(new BossEye(Game.WIDTH / 2 - 150, Game.HEIGHT / 2 - 150, ID.BossEye, handler, 1));
+					handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT / 2 - 150, ID.BossEye, handler, 2));
+					handler.addObject(new BossEye(Game.WIDTH / 2 + 50, Game.HEIGHT / 2 - 150, ID.BossEye, handler, 3));
+					handler.addObject(new BossEye(Game.WIDTH / 2 - 150, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 4));
+					handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 5));
+					handler.addObject(new BossEye(Game.WIDTH / 2 + 50, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 6));
+					handler.addObject(new BossEye(Game.WIDTH / 2 - 150, Game.HEIGHT / 2 + 50, ID.BossEye, handler, 7));
+					handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT / 2 + 50, ID.BossEye, handler, 8));
+					handler.addObject(new BossEye(Game.WIDTH / 2 + 50, Game.HEIGHT / 2 + 50, ID.BossEye, handler, 9));
+					tempCounter++;
 				}
 			}
-		} else if (levelNumber == 3) {
-			timer--;
-			levelTimer--;
-			if (tempCounter < 1) {
-				levelTimer = 1500;
-				tempCounter++;
-			}
-			if (timer == 0) {
-				handler.addObject(
-						new EnemySmart(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), -7, ID.EnemySmart, handler));
-				timer = 60;
-			}
-			if (levelTimer == 0) {
-				handler.clearEnemies();
-				hud.setLevel(hud.getLevel() + 1);
-				timer = 10;
-				tempCounter = 0;
-				if (randomMax == 1) {
-					levelNumber = 101;
-				} else {
-					levels.remove(index);
-					randomMax--;
-					index = r.nextInt(randomMax);
-					levelNumber = levels.get(index);
-				}
-			}
-		} else if (levelNumber == 4) {
-			levelTimer--;
-			if (tempCounter < 1) {
-				handler.addObject(new EnemyShooter(r.nextInt(Game.WIDTH) - 35, r.nextInt(Game.HEIGHT) - 75, 100, 100,
-						-30, ID.EnemyShooter, this.handler));
-				levelTimer = 1300;
-				tempCounter++;
-			}
+			else if (game.diff == 1) {
+				if (levelNumber <= 0) {
+					levelTimer--;
+					if (tempCounter < 1) {
+						handler.addObject(new LevelText(Game.WIDTH / 2 - 675, Game.HEIGHT / 2 - 200, "Same levels...",
+								ID.Levels1to10Text));
+						handler.addObject(new LevelText(Game.WIDTH / 2 - 675, Game.HEIGHT / 2, "...but a little harder now",
+								ID.Levels1to10Text));
+						tempCounter++;
+					}
+					if (levelTimer <= 0) {
+						handler.clearEnemies();
+						tempCounter = 0;
+						levelNumber = levels.get(index);
+					}
 
-			if (levelTimer == 0) {
-				handler.clearEnemies();
-				hud.setLevel(hud.getLevel() + 1);
-				timer = 10;
-				tempCounter = 0;
-				if (randomMax == 1) {
-					levelNumber = 101;
-				} else {
-					levels.remove(index);
-					randomMax--;
-					index = r.nextInt(randomMax);
-					levelNumber = levels.get(index);
 				}
-			}
-		} else if (levelNumber == 5) {
-			timer--;
-			levelTimer--;
-			if (tempCounter < 1) {
-				levelTimer = 1400;
-				tempCounter++;
-			}
-			if (timer <= 0) {
-				handler.addObject(new EnemyBurst(-250, 250, 75, 75, 250, side[r.nextInt(4)], ID.EnemyBurst, handler));
-				timer = 120;
-			}
 
-			if (levelTimer == 0) {
-				handler.clearEnemies();
-				hud.setLevel(hud.getLevel() + 1);
-				timer = 10;
-				tempCounter = 0;
-				if (randomMax == 1) {
-					levelNumber = 101;
-				} else {
-					levels.remove(index);
-					randomMax--;
-					index = r.nextInt(randomMax);
-					levelNumber = levels.get(index);
-				}
-			}
-		} else if (levelNumber == 6) {
-			timer--;
-			levelTimer--;
-			if (tempCounter < 1) {
-				levelTimer = 1500;
-				tempCounter++;
-			}
-			if (timer == 0) {
-				handler.addObject(
-						new EnemyBasic(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 15, 15, ID.EnemyBasic, handler));
-				timer = 50;
-			}
-			if (levelTimer == 0) {
-				handler.clearEnemies();
-				hud.setLevel(hud.getLevel() + 1);
-				timer = 40;
-				tempCounter = 0;
-				if (randomMax == 1) {
-					levelNumber = 101;
-				} else {
-					levels.remove(index);
-					randomMax--;
-					index = r.nextInt(randomMax);
-					levelNumber = levels.get(index);
-				}
-			}
-		} else if (levelNumber == 7) {
-			timer--;
-			levelTimer--;
-			if (tempCounter < 1) {
-				levelTimer = 1500;
-				tempCounter++;
-			}
-			if (timer == 35) {
-				handler.addObject(
-						new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 30, 2, ID.EnemySweep, handler));
-			} else if (timer == 25) {
-				handler.addObject(
-						new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 30, -2, ID.EnemySweep, handler));
-			} else if (timer == 15) {
-				handler.addObject(
-						new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 30, 4, ID.EnemySweep, handler));
-			} else if (timer == 0) {
-				handler.addObject(
-						new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 30, -4, ID.EnemySweep, handler));
-				timer = 30;
-			}
+				else if (levelNumber == 1) {
+					timer--;
+					levelTimer--;
+					if (tempCounter < 1) {
+						levelTimer = 1500;
+						tempCounter++;
+					}
+					if (timer == 0) {
+						handler.addObject(
+								new EnemyBasic(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 13, 13, ID.EnemyBasic, handler));
+						timer = 80;
+					}
+					if (levelTimer == 0) {
+						handler.clearEnemies();
+						hud.setLevel(hud.getLevel() + 1);
+						timer = 40;
+						tempCounter = 0;
+						if (randomMax == 1) {
+							levelNumber = 101;
+						} else {
+							levels.remove(index);
+							randomMax--;
+							index = r.nextInt(randomMax);
+							levelNumber = levels.get(index);
+						}
+					}
+				} else if (levelNumber == 2) {
+					timer--;
+					levelTimer--;
+					if (tempCounter < 1) {
+						levelTimer = 1500;
+						tempCounter++;
+					}
+					if (timer == 30) {
+						handler.addObject(
+								new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 20, 2, ID.EnemySweep, handler));
+					} else if (timer == 20) {
+						handler.addObject(
+								new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 20, -2, ID.EnemySweep, handler));
+					} else if (timer == 10) {
+						handler.addObject(
+								new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 20, 4, ID.EnemySweep, handler));
+					} else if (timer == 0) {
+						handler.addObject(
+								new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 20, -4, ID.EnemySweep, handler));
+						timer = 45;
+					}
 
-			if (levelTimer == 0) {
-				handler.clearEnemies();
-				hud.setLevel(hud.getLevel() + 1);
-				tempCounter = 0;
-				if (randomMax == 1) {
-					levelNumber = 101;
-				} else {
-					levels.remove(index);
-					randomMax--;
-					index = r.nextInt(randomMax);
-					levelNumber = levels.get(index);
-				}
-			}
-		} else if (levelNumber == 8) {
-			timer--;
-			levelTimer--;
-			if (tempCounter < 1) {
-				levelTimer = 1000;
-				tempCounter++;
-			}
-			if (timer == 0) {
-				handler.addObject(
-						new EnemySmart(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), -9, ID.EnemySmart, handler));
-				timer = 50;
-			}
-			if (levelTimer == 0) {
-				handler.clearEnemies();
-				hud.setLevel(hud.getLevel() + 1);
-				timer = 10;
-				tempCounter = 0;
-				if (randomMax == 1) {
-					levelNumber = 101;
-				} else {
-					levels.remove(index);
-					randomMax--;
-					index = r.nextInt(randomMax);
-					levelNumber = levels.get(index);
-				}
-			}
-		} else if (levelNumber == 9) {
-			levelTimer--;
-			if (tempCounter < 1) {
-				handler.addObject(new EnemyShooter(r.nextInt(Game.WIDTH) - 35, r.nextInt(Game.HEIGHT) - 75, 200, 200,
-						-40, ID.EnemyShooter, this.handler));
-				levelTimer = 2500;
-				tempCounter++;
-			}
+					if (levelTimer == 0) {
+						handler.clearEnemies();
+						hud.setLevel(hud.getLevel() + 1);
+						tempCounter = 0;
+						if (randomMax == 1) {
+							levelNumber = 101;
+						} else {
+							levels.remove(index);
+							randomMax--;
+							index = r.nextInt(randomMax);
+							levelNumber = levels.get(index);
+						}
+					}
+				} else if (levelNumber == 3) {
+					timer--;
+					levelTimer--;
+					if (tempCounter < 1) {
+						levelTimer = 1500;
+						tempCounter++;
+					}
+					if (timer == 0) {
+						handler.addObject(
+								new EnemySmart(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), -7, ID.EnemySmart, handler));
+						timer = 60;
+					}
+					if (levelTimer == 0) {
+						handler.clearEnemies();
+						hud.setLevel(hud.getLevel() + 1);
+						timer = 10;
+						tempCounter = 0;
+						if (randomMax == 1) {
+							levelNumber = 101;
+						} else {
+							levels.remove(index);
+							randomMax--;
+							index = r.nextInt(randomMax);
+							levelNumber = levels.get(index);
+						}
+					}
+				} else if (levelNumber == 4) {
+					levelTimer--;
+					if (tempCounter < 1) {
+						handler.addObject(new EnemyShooter(r.nextInt(Game.WIDTH) - 35, r.nextInt(Game.HEIGHT) - 75, 100, 100,
+								-30, ID.EnemyShooter, this.handler));
+						levelTimer = 1300;
+						tempCounter++;
+					}
 
-			if (levelTimer == 0) {
-				handler.clearEnemies();
-				hud.setLevel(hud.getLevel() + 1);
-				timer = 10;
-				tempCounter = 0;
-				if (randomMax == 1) {
-					levelNumber = 101;
-				} else {
-					levels.remove(index);
-					randomMax--;
-					index = r.nextInt(randomMax);
-					levelNumber = levels.get(index);
-				}
-			}
-		} else if (levelNumber == 10) {
-			timer--;
-			levelTimer--;
-			if (tempCounter < 1) {
-				levelTimer = 1400;
-				tempCounter++;
-			}
-			if (timer <= 0) {
-				handler.addObject(new EnemyBurst(-300, 300, 60, 60, 300, side[r.nextInt(4)], ID.EnemyBurst, handler));
-				timer = 60;
-			}
+					if (levelTimer == 0) {
+						handler.clearEnemies();
+						hud.setLevel(hud.getLevel() + 1);
+						timer = 10;
+						tempCounter = 0;
+						if (randomMax == 1) {
+							levelNumber = 101;
+						} else {
+							levels.remove(index);
+							randomMax--;
+							index = r.nextInt(randomMax);
+							levelNumber = levels.get(index);
+						}
+					}
+				} else if (levelNumber == 5) {
+					timer--;
+					levelTimer--;
+					if (tempCounter < 1) {
+						levelTimer = 1400;
+						tempCounter++;
+					}
+					if (timer <= 0) {
+						handler.addObject(new EnemyBurst(-250, 250, 75, 75, 250, side[r.nextInt(4)], ID.EnemyBurst, handler));
+						timer = 120;
+					}
 
-			if (levelTimer == 0) {
-				handler.clearEnemies();
-				hud.setLevel(hud.getLevel() + 1);
-				timer = 10;
-				tempCounter = 0;
-				if (randomMax == 1) {
-					levelNumber = 101;
-				} else {
-					levels.remove(index);
-					randomMax--;
-					index = r.nextInt(randomMax);
-					levelNumber = levels.get(index);
-				}
-			}
-		}
+					if (levelTimer == 0) {
+						handler.clearEnemies();
+						hud.setLevel(hud.getLevel() + 1);
+						timer = 10;
+						tempCounter = 0;
+						if (randomMax == 1) {
+							levelNumber = 101;
+						} else {
+							levels.remove(index);
+							randomMax--;
+							index = r.nextInt(randomMax);
+							levelNumber = levels.get(index);
+						}
+					}
+				} else if (levelNumber == 6) {
+					timer--;
+					levelTimer--;
+					if (tempCounter < 1) {
+						levelTimer = 1500;
+						tempCounter++;
+					}
+					if (timer == 0) {
+						handler.addObject(
+								new EnemyBasic(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 15, 15, ID.EnemyBasic, handler));
+						timer = 50;
+					}
+					if (levelTimer == 0) {
+						handler.clearEnemies();
+						hud.setLevel(hud.getLevel() + 1);
+						timer = 40;
+						tempCounter = 0;
+						if (randomMax == 1) {
+							levelNumber = 101;
+						} else {
+							levels.remove(index);
+							randomMax--;
+							index = r.nextInt(randomMax);
+							levelNumber = levels.get(index);
+						}
+					}
+				} else if (levelNumber == 7) {
+					timer--;
+					levelTimer--;
+					if (tempCounter < 1) {
+						levelTimer = 1500;
+						tempCounter++;
+					}
+					if (timer == 35) {
+						handler.addObject(
+								new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 30, 2, ID.EnemySweep, handler));
+					} else if (timer == 25) {
+						handler.addObject(
+								new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 30, -2, ID.EnemySweep, handler));
+					} else if (timer == 15) {
+						handler.addObject(
+								new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 30, 4, ID.EnemySweep, handler));
+					} else if (timer == 0) {
+						handler.addObject(
+								new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 30, -4, ID.EnemySweep, handler));
+						timer = 30;
+					}
 
-		else if (levelNumber == 101) {
-			if (tempCounter < 1) {
-				handler.addObject(new BossEye(Game.WIDTH / 2 - 150, Game.HEIGHT / 2 - 150, ID.BossEye, handler, 1));
-				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT / 2 - 150, ID.BossEye, handler, 2));
-				handler.addObject(new BossEye(Game.WIDTH / 2 + 50, Game.HEIGHT / 2 - 150, ID.BossEye, handler, 3));
-				handler.addObject(new BossEye(Game.WIDTH / 2 - 150, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 4));
-				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 5));
-				handler.addObject(new BossEye(Game.WIDTH / 2 + 50, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 6));
-				handler.addObject(new BossEye(Game.WIDTH / 2 - 150, Game.HEIGHT / 2 + 50, ID.BossEye, handler, 7));
-				handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT / 2 + 50, ID.BossEye, handler, 8));
-				handler.addObject(new BossEye(Game.WIDTH / 2 + 50, Game.HEIGHT / 2 + 50, ID.BossEye, handler, 9));
-				tempCounter++;
+					if (levelTimer == 0) {
+						handler.clearEnemies();
+						hud.setLevel(hud.getLevel() + 1);
+						tempCounter = 0;
+						if (randomMax == 1) {
+							levelNumber = 101;
+						} else {
+							levels.remove(index);
+							randomMax--;
+							index = r.nextInt(randomMax);
+							levelNumber = levels.get(index);
+						}
+					}
+				} else if (levelNumber == 8) {
+					timer--;
+					levelTimer--;
+					if (tempCounter < 1) {
+						levelTimer = 1000;
+						tempCounter++;
+					}
+					if (timer == 0) {
+						handler.addObject(
+								new EnemySmart(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), -9, ID.EnemySmart, handler));
+						timer = 50;
+					}
+					if (levelTimer == 0) {
+						handler.clearEnemies();
+						hud.setLevel(hud.getLevel() + 1);
+						timer = 10;
+						tempCounter = 0;
+						if (randomMax == 1) {
+							levelNumber = 101;
+						} else {
+							levels.remove(index);
+							randomMax--;
+							index = r.nextInt(randomMax);
+							levelNumber = levels.get(index);
+						}
+					}
+				} else if (levelNumber == 9) {
+					levelTimer--;
+					if (tempCounter < 1) {
+						handler.addObject(new EnemyShooter(r.nextInt(Game.WIDTH) - 35, r.nextInt(Game.HEIGHT) - 75, 200, 200,
+								-40, ID.EnemyShooter, this.handler));
+						levelTimer = 2500;
+						tempCounter++;
+					}
+
+					if (levelTimer == 0) {
+						handler.clearEnemies();
+						hud.setLevel(hud.getLevel() + 1);
+						timer = 10;
+						tempCounter = 0;
+						if (randomMax == 1) {
+							levelNumber = 101;
+						} else {
+							levels.remove(index);
+							randomMax--;
+							index = r.nextInt(randomMax);
+							levelNumber = levels.get(index);
+						}
+					}
+				} else if (levelNumber == 10) {
+					timer--;
+					levelTimer--;
+					if (tempCounter < 1) {
+						levelTimer = 1400;
+						tempCounter++;
+					}
+					if (timer <= 0) {
+						handler.addObject(new EnemyBurst(-300, 300, 60, 60, 300, side[r.nextInt(4)], ID.EnemyBurst, handler));
+						timer = 60;
+					}
+
+					if (levelTimer == 0) {
+						handler.clearEnemies();
+						hud.setLevel(hud.getLevel() + 1);
+						timer = 10;
+						tempCounter = 0;
+						if (randomMax == 1) {
+							levelNumber = 101;
+						} else {
+							levels.remove(index);
+							randomMax--;
+							index = r.nextInt(randomMax);
+							levelNumber = levels.get(index);
+						}
+					}
+				}
+
+				else if (levelNumber == 101) {
+					if (tempCounter < 1) {
+						handler.addObject(new BossEye(Game.WIDTH / 2 - 150, Game.HEIGHT / 2 - 150, ID.BossEye, handler, 1));
+						handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT / 2 - 150, ID.BossEye, handler, 2));
+						handler.addObject(new BossEye(Game.WIDTH / 2 + 50, Game.HEIGHT / 2 - 150, ID.BossEye, handler, 3));
+						handler.addObject(new BossEye(Game.WIDTH / 2 - 150, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 4));
+						handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 5));
+						handler.addObject(new BossEye(Game.WIDTH / 2 + 50, Game.HEIGHT / 2 - 50, ID.BossEye, handler, 6));
+						handler.addObject(new BossEye(Game.WIDTH / 2 - 150, Game.HEIGHT / 2 + 50, ID.BossEye, handler, 7));
+						handler.addObject(new BossEye(Game.WIDTH / 2 - 50, Game.HEIGHT / 2 + 50, ID.BossEye, handler, 8));
+						handler.addObject(new BossEye(Game.WIDTH / 2 + 50, Game.HEIGHT / 2 + 50, ID.BossEye, handler, 9));
+						tempCounter++;
+					}
+				}
 			}
 
 		}
