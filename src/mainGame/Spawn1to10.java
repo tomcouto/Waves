@@ -60,332 +60,661 @@ public class Spawn1to10 {
 	 * Called once every 60 seconds by the Game loop
 	 */
 	public void tick() {
-		if (levelNumber <= 0) {
-			levelTimer--;
-			if (tempCounter < 1) {// display intro game message ONE time
-				handler.addObject(new LevelText(Game.WIDTH / 2 - 675, Game.HEIGHT / 2 - 200, "Let's start off easy...",
-						ID.Levels1to10Text));
-				tempCounter++;
-			}
-			if (levelTimer <= 0) {// time to play!
-				handler.clearEnemies();
-				tempCounter = 0;
-				levelNumber = levels.get(index);
-			}
 
-		}
-		/*
-		 * EVERY LEVEL WORKS THE SAME WAY
-		 * 
-		 * Only the first level is commented
-		 * 
-		 * Please refer to this bit of code to understand how each level works
-		 * 
-		 */
-		else if (levelNumber == 1) {// this is level 1
-			spawnTimer--;// keep decrementing the spawning spawnTimer 60 times a second
-			levelTimer--;// keep decrementing the level spawnTimer 60 times a second
-			if (tempCounter < 1) {// called only once, but sets the levelTimer to how long we want this level to
-									// run for
-				levelTimer = 2000;// 2000 / 60 method calls a second = 33.33 seconds long
-				tempCounter++;// ensures the method is only called once
-			}
-			if (spawnTimer == 0) {// time to spawn another enemy
-				handler.addObject(
-						new EnemyBasic(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 9, 9, ID.EnemyBasic, handler));// add
-																														// them
-																														// to
-																														// the
-																														// handler,
-																														// which
-																														// handles
-																														// all
-																														// game
-																														// objects
-				spawnTimer = 100;// reset the spawn timer
-			}
-			if (levelTimer == 0) {// level is over
-				handler.clearEnemies();// clear the enemies
-				hud.setLevel(hud.getLevel() + 1);// Increment level number on HUD
-				spawnTimer = 40;
-				tempCounter = 0;// reset tempCounter
-				if (levelsRemaining == 1) {// time for the boss!
-					levelNumber = 101;// arbitrary number for the boss level
-				} else {// not time for the boss, just go to the next level
-					levels.remove(index);// remove the current level from being selected
-					levelsRemaining--;
-					index = r.nextInt(levelsRemaining);// pick another level at random
-					levelNumber = levels.get(index);// set levelNumber to whatever index was randomly selected
+		if (game.diff == 0) {
+			if (levelNumber <= 0) {
+				levelTimer--;
+				if (tempCounter < 1) {// display intro game message ONE time
+					handler.addObject(new LevelText(Game.WIDTH / 2 - 675, Game.HEIGHT / 2 - 200, "Let's start off easy...",
+							ID.Levels1to10Text));
+					tempCounter++;
 				}
-			}
-		} else if (levelNumber == 2) {
-			spawnTimer--;
-			levelTimer--;
-			if (tempCounter < 1) {
-				levelTimer = 2000;
-				tempCounter++;
-			}
-			if (spawnTimer == 30) {
-				handler.addObject(
-						new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 20, 2, ID.EnemySweep, handler));
-			} else if (spawnTimer == 20) {
-				handler.addObject(
-						new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 20, -2, ID.EnemySweep, handler));
-			} else if (spawnTimer == 10) {
-				handler.addObject(
-						new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 20, 4, ID.EnemySweep, handler));
-			} else if (spawnTimer == 0) {
-				handler.addObject(
-						new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 20, -4, ID.EnemySweep, handler));
-				spawnTimer = 80;
-			}
+				if (levelTimer <= 0) {// time to play!
+					handler.clearEnemies();
+					tempCounter = 0;
+					levelNumber = levels.get(index);
+				}
 
-			if (levelTimer == 0) {
-				handler.clearEnemies();
-				hud.setLevel(hud.getLevel() + 1);
-				tempCounter = 0;
-				if (levelsRemaining == 1) {
-					levelNumber = 101;
-				} else {
-					levels.remove(index);
-					levelsRemaining--;
-					index = r.nextInt(levelsRemaining);
-					levelNumber = levels.get(index);
-				}
 			}
-		} else if (levelNumber == 3) {
-			spawnTimer--;
-			levelTimer--;
-			if (tempCounter < 1) {
-				levelTimer = 1500;
-				tempCounter++;
-			}
-			if (spawnTimer == 0) {
-				handler.addObject(
-						new EnemySmart(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), -5, ID.EnemySmart, handler));
-				spawnTimer = 100;
-			}
-			if (levelTimer == 0) {
-				handler.clearEnemies();
-				hud.setLevel(hud.getLevel() + 1);
-				spawnTimer = 10;
-				tempCounter = 0;
-				if (levelsRemaining == 1) {
-					levelNumber = 101;
-				} else {
-					levels.remove(index);
-					levelsRemaining--;
-					index = r.nextInt(levelsRemaining);
-					levelNumber = levels.get(index);
-				}
-			}
-		} else if (levelNumber == 4) {
-			levelTimer--;
-			if (tempCounter < 1) {
-				handler.addObject(new EnemyShooter(r.nextInt(Game.WIDTH) - 35, r.nextInt(Game.HEIGHT) - 75, 100, 100,
-						-20, ID.EnemyShooter, this.handler));
-				levelTimer = 1300;
-				tempCounter++;
-			}
+			/*
+			 * EVERY LEVEL WORKS THE SAME WAY
+			 * 
+			 * Only the first level is commented
+			 * 
+			 * Please refer to this bit of code to understand how each level works
+			 * 
+			 */
 
-			if (levelTimer == 0) {
-				handler.clearEnemies();
-				hud.setLevel(hud.getLevel() + 1);
-				spawnTimer = 10;
-				tempCounter = 0;
-				if (levelsRemaining == 1) {
-					levelNumber = 101;
-				} else {
-					levels.remove(index);
-					levelsRemaining--;
-					index = r.nextInt(levelsRemaining);
-					levelNumber = levels.get(index);
-				}
-			}
-		} else if (levelNumber == 5) {
-			spawnTimer--;
-			levelTimer--;
-			if (tempCounter < 1) {
-				levelTimer = 1400;
-				tempCounter++;
-			}
-			if (spawnTimer <= 0) {
-				handler.addObject(new EnemyBurst(-200, 200, 50, 50, 200, side[r.nextInt(4)], ID.EnemyBurst, handler));
-				spawnTimer = 180;
-			}
 
-			if (levelTimer == 0) {
-				handler.clearEnemies();
-				hud.setLevel(hud.getLevel() + 1);
-				spawnTimer = 10;
-				tempCounter = 0;
-				if (levelsRemaining == 1) {
-					levelNumber = 101;
-				} else {
-					levels.remove(index);
-					levelsRemaining--;
-					index = r.nextInt(levelsRemaining);
-					levelNumber = levels.get(index);
+			else if (levelNumber == 1) {// this is level 1
+				spawnTimer--;// keep decrementing the spawning spawnTimer 60 times a second
+				levelTimer--;// keep decrementing the level spawnTimer 60 times a second
+				if (tempCounter < 1) {// called only once, but sets the levelTimer to how long we want this level to
+					// run for
+					levelTimer = 2000;// 2000 / 60 method calls a second = 33.33 seconds long
+					tempCounter++;// ensures the method is only called once
 				}
-			}
-		} else if (levelNumber == 6) {
-			spawnTimer--;
-			levelTimer--;
-			if (tempCounter < 1) {
-				levelTimer = 1500;
-				tempCounter++;
-			}
-			if (spawnTimer == 0) {
-				handler.addObject(
-						new EnemyBasic(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 7, 7, ID.EnemyBasic, handler));
-				spawnTimer = 50;
-			}
-			if (levelTimer == 0) {
-				handler.clearEnemies();
-				hud.setLevel(hud.getLevel() + 1);
-				spawnTimer = 40;
-				tempCounter = 0;
-				if (levelsRemaining == 1) {
-					levelNumber = 101;
-				} else {
-					levels.remove(index);
-					levelsRemaining--;
-					index = r.nextInt(levelsRemaining);
-					levelNumber = levels.get(index);
+				if (spawnTimer == 0) {// time to spawn another enemy
+					handler.addObject(
+							new EnemyBasic(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 9, 9, ID.EnemyBasic, handler));// add
+					// them
+					// to
+					// the
+					// handler,
+					// which
+					// handles
+					// all
+					// game
+					// objects
+					spawnTimer = 100;// reset the spawn timer
 				}
-			}
-		} else if (levelNumber == 7) {
-			spawnTimer--;
-			levelTimer--;
-			if (tempCounter < 1) {
-				levelTimer = 1200;
-				tempCounter++;
-			}
-			if (spawnTimer == 35) {
-				handler.addObject(
-						new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 25, 2, ID.EnemySweep, handler));
-			} else if (spawnTimer == 25) {
-				handler.addObject(
-						new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 25, -2, ID.EnemySweep, handler));
-			} else if (spawnTimer == 15) {
-				handler.addObject(
-						new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 25, 4, ID.EnemySweep, handler));
-			} else if (spawnTimer == 0) {
-				handler.addObject(
-						new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 25, -4, ID.EnemySweep, handler));
-				spawnTimer = 100;
-			}
+				if (levelTimer == 0) {// level is over
+					handler.clearEnemies();// clear the enemies
+					hud.setLevel(hud.getLevel() + 1);// Increment level number on HUD
+					spawnTimer = 40;
+					tempCounter = 0;// reset tempCounter
+					if (levelsRemaining == 1) {// time for the boss!
+						levelNumber = 101;// arbitrary number for the boss level
+					} else {// not time for the boss, just go to the next level
+						levels.remove(index);// remove the current level from being selected
+						levelsRemaining--;
+						index = r.nextInt(levelsRemaining);// pick another level at random
+						levelNumber = levels.get(index);// set levelNumber to whatever index was randomly selected
+					}
+				}
+			} else if (levelNumber == 2) {
+				spawnTimer--;
+				levelTimer--;
+				if (tempCounter < 1) {
+					levelTimer = 2000;
+					tempCounter++;
+				}
+				if (spawnTimer == 30) {
+					handler.addObject(
+							new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 20, 2, ID.EnemySweep, handler));
+				} else if (spawnTimer == 20) {
+					handler.addObject(
+							new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 20, -2, ID.EnemySweep, handler));
+				} else if (spawnTimer == 10) {
+					handler.addObject(
+							new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 20, 4, ID.EnemySweep, handler));
+				} else if (spawnTimer == 0) {
+					handler.addObject(
+							new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 20, -4, ID.EnemySweep, handler));
+					spawnTimer = 80;
+				}
 
-			if (levelTimer == 0) {
-				handler.clearEnemies();
-				hud.setLevel(hud.getLevel() + 1);
-				tempCounter = 0;
-				if (levelsRemaining == 1) {
-					levelNumber = 101;
-				} else {
-					levels.remove(index);
-					levelsRemaining--;
-					index = r.nextInt(levelsRemaining);
-					levelNumber = levels.get(index);
+				if (levelTimer == 0) {
+					handler.clearEnemies();
+					hud.setLevel(hud.getLevel() + 1);
+					tempCounter = 0;
+					if (levelsRemaining == 1) {
+						levelNumber = 101;
+					} else {
+						levels.remove(index);
+						levelsRemaining--;
+						index = r.nextInt(levelsRemaining);
+						levelNumber = levels.get(index);
+					}
 				}
-			}
-		} else if (levelNumber == 8) {
-			spawnTimer--;
-			levelTimer--;
-			if (tempCounter < 1) {
-				levelTimer = 1000;
-				tempCounter++;
-			}
-			if (spawnTimer == 0) {
-				handler.addObject(
-						new EnemySmart(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), -3, ID.EnemySmart, handler));
-				spawnTimer = 50;
-			}
-			if (levelTimer == 0) {
-				handler.clearEnemies();
-				hud.setLevel(hud.getLevel() + 1);
-				spawnTimer = 10;
-				tempCounter = 0;
-				if (levelsRemaining == 1) {
-					levelNumber = 101;
-				} else {
-					levels.remove(index);
-					levelsRemaining--;
-					index = r.nextInt(levelsRemaining);
-					levelNumber = levels.get(index);
+			} else if (levelNumber == 3) {
+				spawnTimer--;
+				levelTimer--;
+				if (tempCounter < 1) {
+					levelTimer = 1500;
+					tempCounter++;
 				}
-			}
-		} else if (levelNumber == 9) {
-			levelTimer--;
-			if (tempCounter < 1) {
-				handler.addObject(new EnemyShooter(r.nextInt(Game.WIDTH) - 35, r.nextInt(Game.HEIGHT) - 75, 200, 200,
-						-15, ID.EnemyShooter, this.handler));
-				levelTimer = 2500;
-				tempCounter++;
-			}
+				if (spawnTimer == 0) {
+					handler.addObject(
+							new EnemySmart(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), -5, ID.EnemySmart, handler));
+					spawnTimer = 100;
+				}
+				if (levelTimer == 0) {
+					handler.clearEnemies();
+					hud.setLevel(hud.getLevel() + 1);
+					spawnTimer = 10;
+					tempCounter = 0;
+					if (levelsRemaining == 1) {
+						levelNumber = 101;
+					} else {
+						levels.remove(index);
+						levelsRemaining--;
+						index = r.nextInt(levelsRemaining);
+						levelNumber = levels.get(index);
+					}
+				}
+			} else if (levelNumber == 4) {
+				levelTimer--;
+				if (tempCounter < 1) {
+					handler.addObject(new EnemyShooter(r.nextInt(Game.WIDTH) - 35, r.nextInt(Game.HEIGHT) - 75, 100, 100,
+							-20, ID.EnemyShooter, this.handler));
+					levelTimer = 1300;
+					tempCounter++;
+				}
 
-			if (levelTimer == 0) {
-				handler.clearEnemies();
-				hud.setLevel(hud.getLevel() + 1);
-				spawnTimer = 10;
-				tempCounter = 0;
-				if (levelsRemaining == 1) {
-					levelNumber = 101;
-				} else {
-					levels.remove(index);
-					levelsRemaining--;
-					index = r.nextInt(levelsRemaining);
-					levelNumber = levels.get(index);
+				if (levelTimer == 0) {
+					handler.clearEnemies();
+					hud.setLevel(hud.getLevel() + 1);
+					spawnTimer = 10;
+					tempCounter = 0;
+					if (levelsRemaining == 1) {
+						levelNumber = 101;
+					} else {
+						levels.remove(index);
+						levelsRemaining--;
+						index = r.nextInt(levelsRemaining);
+						levelNumber = levels.get(index);
+					}
 				}
-			}
-		} else if (levelNumber == 10) {
-			spawnTimer--;
-			levelTimer--;
-			if (tempCounter < 1) {
-				levelTimer = 1400;
-				tempCounter++;
-			}
-			if (spawnTimer <= 0) {
-				handler.addObject(new EnemyBurst(-200, 200, 40, 40, 200, side[r.nextInt(4)], ID.EnemyBurst, handler));
-				spawnTimer = 90;
-			}
-
-			if (levelTimer == 0) {
-				handler.clearEnemies();
-				hud.setLevel(hud.getLevel() + 1);
-				spawnTimer = 10;
-				tempCounter = 0;
-				if (levelsRemaining == 1) {
-					levelNumber = 101;
-				} else {
-					levels.remove(index);
-					levelsRemaining--;
-					index = r.nextInt(levelsRemaining);
-					levelNumber = levels.get(index);
+			} else if (levelNumber == 5) {
+				spawnTimer--;
+				levelTimer--;
+				if (tempCounter < 1) {
+					levelTimer = 1400;
+					tempCounter++;
 				}
-			}
-		}
+				if (spawnTimer <= 0) {
+					handler.addObject(new EnemyBurst(-200, 200, 50, 50, 200, side[r.nextInt(4)], ID.EnemyBurst, handler));
+					spawnTimer = 180;
+				}
 
-		else if (levelNumber == 101) {// arbitrary number for the boss
-			if (tempCounter < 1) {
-				handler.addObject(new EnemyBoss(ID.EnemyBoss, handler));
-				tempCounter++;
-			} else if (tempCounter >= 1) {
-				for (int i = 0; i < handler.object.size(); i++) {
-					GameObject tempObject = handler.object.get(i);
-					if (tempObject.getId() == ID.EnemyBoss) {
-						if (tempObject.getHealth() <= 0) {
-							handler.removeObject(tempObject);
-							LEVEL_SET++;
-							game.gameState = STATE.Upgrade;
-						}
+				if (levelTimer == 0) {
+					handler.clearEnemies();
+					hud.setLevel(hud.getLevel() + 1);
+					spawnTimer = 10;
+					tempCounter = 0;
+					if (levelsRemaining == 1) {
+						levelNumber = 101;
+					} else {
+						levels.remove(index);
+						levelsRemaining--;
+						index = r.nextInt(levelsRemaining);
+						levelNumber = levels.get(index);
+					}
+				}
+			} else if (levelNumber == 6) {
+				spawnTimer--;
+				levelTimer--;
+				if (tempCounter < 1) {
+					levelTimer = 1500;
+					tempCounter++;
+				}
+				if (spawnTimer == 0) {
+					handler.addObject(
+							new EnemyBasic(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 7, 7, ID.EnemyBasic, handler));
+					spawnTimer = 50;
+				}
+				if (levelTimer == 0) {
+					handler.clearEnemies();
+					hud.setLevel(hud.getLevel() + 1);
+					spawnTimer = 40;
+					tempCounter = 0;
+					if (levelsRemaining == 1) {
+						levelNumber = 101;
+					} else {
+						levels.remove(index);
+						levelsRemaining--;
+						index = r.nextInt(levelsRemaining);
+						levelNumber = levels.get(index);
+					}
+				}
+			} else if (levelNumber == 7) {
+				spawnTimer--;
+				levelTimer--;
+				if (tempCounter < 1) {
+					levelTimer = 1200;
+					tempCounter++;
+				}
+				if (spawnTimer == 35) {
+					handler.addObject(
+							new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 25, 2, ID.EnemySweep, handler));
+				} else if (spawnTimer == 25) {
+					handler.addObject(
+							new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 25, -2, ID.EnemySweep, handler));
+				} else if (spawnTimer == 15) {
+					handler.addObject(
+							new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 25, 4, ID.EnemySweep, handler));
+				} else if (spawnTimer == 0) {
+					handler.addObject(
+							new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 25, -4, ID.EnemySweep, handler));
+					spawnTimer = 100;
+				}
+
+				if (levelTimer == 0) {
+					handler.clearEnemies();
+					hud.setLevel(hud.getLevel() + 1);
+					tempCounter = 0;
+					if (levelsRemaining == 1) {
+						levelNumber = 101;
+					} else {
+						levels.remove(index);
+						levelsRemaining--;
+						index = r.nextInt(levelsRemaining);
+						levelNumber = levels.get(index);
+					}
+				}
+			} else if (levelNumber == 8) {
+				spawnTimer--;
+				levelTimer--;
+				if (tempCounter < 1) {
+					levelTimer = 1000;
+					tempCounter++;
+				}
+				if (spawnTimer == 0) {
+					handler.addObject(
+							new EnemySmart(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), -3, ID.EnemySmart, handler));
+					spawnTimer = 50;
+				}
+				if (levelTimer == 0) {
+					handler.clearEnemies();
+					hud.setLevel(hud.getLevel() + 1);
+					spawnTimer = 10;
+					tempCounter = 0;
+					if (levelsRemaining == 1) {
+						levelNumber = 101;
+					} else {
+						levels.remove(index);
+						levelsRemaining--;
+						index = r.nextInt(levelsRemaining);
+						levelNumber = levels.get(index);
+					}
+				}
+			} else if (levelNumber == 9) {
+				levelTimer--;
+				if (tempCounter < 1) {
+					handler.addObject(new EnemyShooter(r.nextInt(Game.WIDTH) - 35, r.nextInt(Game.HEIGHT) - 75, 200, 200,
+							-15, ID.EnemyShooter, this.handler));
+					levelTimer = 2500;
+					tempCounter++;
+				}
+
+				if (levelTimer == 0) {
+					handler.clearEnemies();
+					hud.setLevel(hud.getLevel() + 1);
+					spawnTimer = 10;
+					tempCounter = 0;
+					if (levelsRemaining == 1) {
+						levelNumber = 101;
+					} else {
+						levels.remove(index);
+						levelsRemaining--;
+						index = r.nextInt(levelsRemaining);
+						levelNumber = levels.get(index);
+					}
+				}
+			} else if (levelNumber == 10) {
+				spawnTimer--;
+				levelTimer--;
+				if (tempCounter < 1) {
+					levelTimer = 1400;
+					tempCounter++;
+				}
+				if (spawnTimer <= 0) {
+					handler.addObject(new EnemyBurst(-200, 200, 40, 40, 200, side[r.nextInt(4)], ID.EnemyBurst, handler));
+					spawnTimer = 90;
+				}
+
+				if (levelTimer == 0) {
+					handler.clearEnemies();
+					hud.setLevel(hud.getLevel() + 1);
+					spawnTimer = 10;
+					tempCounter = 0;
+					if (levelsRemaining == 1) {
+						levelNumber = 101;
+					} else {
+						levels.remove(index);
+						levelsRemaining--;
+						index = r.nextInt(levelsRemaining);
+						levelNumber = levels.get(index);
 					}
 				}
 			}
 
+			else if (levelNumber == 101) {// arbitrary number for the boss
+				if (tempCounter < 1) {
+					handler.addObject(new EnemyBoss(ID.EnemyBoss, handler));
+					tempCounter++;
+				} else if (tempCounter >= 1) {
+					for (int i = 0; i < handler.object.size(); i++) {
+						GameObject tempObject = handler.object.get(i);
+						if (tempObject.getId() == ID.EnemyBoss) {
+							if (tempObject.getHealth() <= 0) {
+								handler.removeObject(tempObject);
+								LEVEL_SET++;
+								game.gameState = STATE.Upgrade;
+							}
+						}
+					}
+				}
+			}
+		}
+		else if (game.diff == 1) {
+			if (levelNumber <= 0) {
+				levelTimer--;
+				if (tempCounter < 1) {// display intro game message ONE time
+					handler.addObject(new LevelText(Game.WIDTH / 2 - 675, Game.HEIGHT / 2 - 200, "Hard Mode...",
+							ID.Levels1to10Text));
+					tempCounter++;
+				}
+				if (levelTimer <= 0) {// time to play!
+					handler.clearEnemies();
+					tempCounter = 0;
+					levelNumber = levels.get(index);
+				}
+			}
+
+				else if (levelNumber == 1) {// this is level 1
+					spawnTimer--;// keep decrementing the spawning spawnTimer 60 times a second
+					levelTimer--;// keep decrementing the level spawnTimer 60 times a second
+					if (tempCounter < 1) {// called only once, but sets the levelTimer to how long we want this level to
+						// run for
+						levelTimer = 2000;// 2000 / 60 method calls a second = 33.33 seconds long
+						tempCounter++;// ensures the method is only called once
+					}
+					if (spawnTimer == 0) {// time to spawn another enemy
+						handler.addObject(
+								new EnemyBasic(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 30, 30, ID.EnemyBasic, handler));// add
+						// them
+						// to
+						// the
+						// handler,
+						// which
+						// handles
+						// all
+						// game
+						// objects
+						spawnTimer = 100;// reset the spawn timer
+					}
+					if (levelTimer == 0) {// level is over
+						handler.clearEnemies();// clear the enemies
+						hud.setLevel(hud.getLevel() + 1);// Increment level number on HUD
+						spawnTimer = 40;
+						tempCounter = 0;// reset tempCounter
+						if (levelsRemaining == 1) {// time for the boss!
+							levelNumber = 101;// arbitrary number for the boss level
+						} else {// not time for the boss, just go to the next level
+							levels.remove(index);// remove the current level from being selected
+							levelsRemaining--;
+							index = r.nextInt(levelsRemaining);// pick another level at random
+							levelNumber = levels.get(index);// set levelNumber to whatever index was randomly selected
+						}
+					}
+				} else if (levelNumber == 2) {
+					spawnTimer--;
+					levelTimer--;
+					if (tempCounter < 1) {
+						levelTimer = 2000;
+						tempCounter++;
+					}
+					if (spawnTimer == 30) {
+						handler.addObject(
+								new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 20, 2, ID.EnemySweep, handler));
+					} else if (spawnTimer == 20) {
+						handler.addObject(
+								new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 20, -2, ID.EnemySweep, handler));
+					} else if (spawnTimer == 10) {
+						handler.addObject(
+								new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 20, 4, ID.EnemySweep, handler));
+					} else if (spawnTimer == 0) {
+						handler.addObject(
+								new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 20, -4, ID.EnemySweep, handler));
+						spawnTimer = 15;
+					}
+
+					if (levelTimer == 0) {
+						handler.clearEnemies();
+						hud.setLevel(hud.getLevel() + 1);
+						tempCounter = 0;
+						if (levelsRemaining == 1) {
+							levelNumber = 101;
+						} else {
+							levels.remove(index);
+							levelsRemaining--;
+							index = r.nextInt(levelsRemaining);
+							levelNumber = levels.get(index);
+						}
+					}
+				} else if (levelNumber == 3) {
+					spawnTimer--;
+					levelTimer--;
+					if (tempCounter < 1) {
+						levelTimer = 1500;
+						tempCounter++;
+					}
+					if (spawnTimer == 0) {
+						handler.addObject(
+								new EnemySmart(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), -10, ID.EnemySmart, handler));
+						spawnTimer = 40;
+					}
+					if (levelTimer == 0) {
+						handler.clearEnemies();
+						hud.setLevel(hud.getLevel() + 1);
+						spawnTimer = 10;
+						tempCounter = 0;
+						if (levelsRemaining == 1) {
+							levelNumber = 101;
+						} else {
+							levels.remove(index);
+							levelsRemaining--;
+							index = r.nextInt(levelsRemaining);
+							levelNumber = levels.get(index);
+						}
+					}
+				} else if (levelNumber == 4) {
+					levelTimer--;
+					if (tempCounter < 1) {
+						handler.addObject(new EnemyShooter(r.nextInt(Game.WIDTH) - 35, r.nextInt(Game.HEIGHT) - 75, 100, 100,
+								-60, ID.EnemyShooter, this.handler));
+						levelTimer = 1300;
+						tempCounter++;
+					}
+
+					if (levelTimer == 0) {
+						handler.clearEnemies();
+						hud.setLevel(hud.getLevel() + 1);
+						spawnTimer = 10;
+						tempCounter = 0;
+						if (levelsRemaining == 1) {
+							levelNumber = 101;
+						} else {
+							levels.remove(index);
+							levelsRemaining--;
+							index = r.nextInt(levelsRemaining);
+							levelNumber = levels.get(index);
+						}
+					}
+				} else if (levelNumber == 5) {
+					spawnTimer--;
+					levelTimer--;
+					if (tempCounter < 1) {
+						levelTimer = 1400;
+						tempCounter++;
+					}
+					if (spawnTimer <= 0) {
+						handler.addObject(new EnemyBurst(-275, 275, 100, 100, 300, side[r.nextInt(4)], ID.EnemyBurst, handler));
+						spawnTimer = 100;
+					}
+
+					if (levelTimer == 0) {
+						handler.clearEnemies();
+						hud.setLevel(hud.getLevel() + 1);
+						spawnTimer = 10;
+						tempCounter = 0;
+						if (levelsRemaining == 1) {
+							levelNumber = 101;
+						} else {
+							levels.remove(index);
+							levelsRemaining--;
+							index = r.nextInt(levelsRemaining);
+							levelNumber = levels.get(index);
+						}
+					}
+				} else if (levelNumber == 6) {
+					spawnTimer--;
+					levelTimer--;
+					if (tempCounter < 1) {
+						levelTimer = 1500;
+						tempCounter++;
+					}
+					if (spawnTimer == 0) {
+						handler.addObject(
+								new EnemyBasic(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 30, 30, ID.EnemyBasic, handler));
+						spawnTimer = 50;
+					}
+					if (levelTimer == 0) {
+						handler.clearEnemies();
+						hud.setLevel(hud.getLevel() + 1);
+						spawnTimer = 40;
+						tempCounter = 0;
+						if (levelsRemaining == 1) {
+							levelNumber = 101;
+						} else {
+							levels.remove(index);
+							levelsRemaining--;
+							index = r.nextInt(levelsRemaining);
+							levelNumber = levels.get(index);
+						}
+					}
+				} else if (levelNumber == 7) {
+					spawnTimer--;
+					levelTimer--;
+					if (tempCounter < 1) {
+						levelTimer = 1200;
+						tempCounter++;
+					}
+					if (spawnTimer == 35) {
+						handler.addObject(
+								new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 40, 2, ID.EnemySweep, handler));
+					} else if (spawnTimer == 25) {
+						handler.addObject(
+								new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 40, -2, ID.EnemySweep, handler));
+					} else if (spawnTimer == 15) {
+						handler.addObject(
+								new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 40, 4, ID.EnemySweep, handler));
+					} else if (spawnTimer == 0) {
+						handler.addObject(
+								new EnemySweep(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), 40, -4, ID.EnemySweep, handler));
+						spawnTimer = 20;
+					}
+
+					if (levelTimer == 0) {
+						handler.clearEnemies();
+						hud.setLevel(hud.getLevel() + 1);
+						tempCounter = 0;
+						if (levelsRemaining == 1) {
+							levelNumber = 101;
+						} else {
+							levels.remove(index);
+							levelsRemaining--;
+							index = r.nextInt(levelsRemaining);
+							levelNumber = levels.get(index);
+						}
+					}
+				} else if (levelNumber == 8) {
+					spawnTimer--;
+					levelTimer--;
+					if (tempCounter < 1) {
+						levelTimer = 1000;
+						tempCounter++;
+					}
+					if (spawnTimer == 0) {
+						handler.addObject(
+								new EnemySmart(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), -20, ID.EnemySmart, handler));
+						spawnTimer = 50;
+					}
+					if (levelTimer == 0) {
+						handler.clearEnemies();
+						hud.setLevel(hud.getLevel() + 1);
+						spawnTimer = 10;
+						tempCounter = 0;
+						if (levelsRemaining == 1) {
+							levelNumber = 101;
+						} else {
+							levels.remove(index);
+							levelsRemaining--;
+							index = r.nextInt(levelsRemaining);
+							levelNumber = levels.get(index);
+						}
+					}
+				} else if (levelNumber == 9) {
+					levelTimer--;
+					if (tempCounter < 1) {
+						handler.addObject(new EnemyShooter(r.nextInt(Game.WIDTH) - 35, r.nextInt(Game.HEIGHT) - 75, 200, 200,
+								-60, ID.EnemyShooter, this.handler));
+						levelTimer = 2500;
+						tempCounter++;
+					}
+
+					if (levelTimer == 0) {
+						handler.clearEnemies();
+						hud.setLevel(hud.getLevel() + 1);
+						spawnTimer = 10;
+						tempCounter = 0;
+						if (levelsRemaining == 1) {
+							levelNumber = 101;
+						} else {
+							levels.remove(index);
+							levelsRemaining--;
+							index = r.nextInt(levelsRemaining);
+							levelNumber = levels.get(index);
+						}
+					}
+				} else if (levelNumber == 10) {
+					spawnTimer--;
+					levelTimer--;
+					if (tempCounter < 1) {
+						levelTimer = 1400;
+						tempCounter++;
+					}
+					if (spawnTimer <= 0) {
+						handler.addObject(new EnemyBurst(-400, 400, 80, 80, 400, side[r.nextInt(4)], ID.EnemyBurst, handler));
+						spawnTimer = 50;
+					}
+
+					if (levelTimer == 0) {
+						handler.clearEnemies();
+						hud.setLevel(hud.getLevel() + 1);
+						spawnTimer = 10;
+						tempCounter = 0;
+						if (levelsRemaining == 1) {
+							levelNumber = 101;
+						} else {
+							levels.remove(index);
+							levelsRemaining--;
+							index = r.nextInt(levelsRemaining);
+							levelNumber = levels.get(index);
+						}
+					}
+				}
+
+				else if (levelNumber == 101) {// arbitrary number for the boss
+					if (tempCounter < 1) {
+						handler.addObject(new EnemyBoss(ID.EnemyBoss, handler));
+						tempCounter++;
+					} else if (tempCounter >= 1) {
+						for (int i = 0; i < handler.object.size(); i++) {
+							GameObject tempObject = handler.object.get(i);
+							if (tempObject.getId() == ID.EnemyBoss) {
+								if (tempObject.getHealth() <= 0) {
+									handler.removeObject(tempObject);
+									LEVEL_SET++;
+									game.gameState = STATE.Upgrade;
+								}
+							}
+						}
+
+					}
+				}
+			}
 		}
 
-	}
+
+	
+
+
+
+
+
 
 	public void skipLevel() {
 		if (levelsRemaining == 1) {
