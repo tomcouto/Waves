@@ -23,6 +23,8 @@ public class KeyInput extends KeyAdapter {
 	private Spawn1to10 spawner;
 	private Upgrades upgrades;
 	private String ability;
+	
+	//Game game1 = new Game();
 
 	// uses current handler created in Game as parameter
 	public KeyInput(Handler handler, Game game, HUD hud, Player player, Spawn1to10 spawner, Upgrades upgrades) {
@@ -71,6 +73,16 @@ public class KeyInput extends KeyAdapter {
 				if (key == KeyEvent.VK_SPACE) {
 					upgrades.levelSkipAbility();
 				}
+				if (key == KeyEvent.VK_P) {
+					
+					if(game.gameState == STATE.Game) {
+		
+						if(Game.paused) Game.paused = false;
+						else Game.paused = true;
+					}
+				
+				}
+				
 				if (key == KeyEvent.VK_ENTER) {
 					ability = upgrades.getAbility();
 					if (ability.equals("clearScreen")) {
